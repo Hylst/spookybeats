@@ -1,0 +1,53 @@
+# Dépendances
+node_modules/
+
+# Build & dist
+dist/
+build/
+
+# Tests & coverage
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environnement (ne jamais versionner les secrets)
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Éditeurs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Outils IA / Agents (ne pas pousser)
+.aistudio/
+.gemini/
+CLAUDE.md
+AGENTS.md
+.opencode/
+.cursor/
+
+# Bun
+bun.lock
+
+# Screenshots et médias temporaires à la racine
+screen*.png
+home_decor.png
+
+# Fichiers Vite
+vite.config.ts.timestamp-*

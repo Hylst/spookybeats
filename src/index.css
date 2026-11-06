@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@theme {
+  --font-headline: 'Syne', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-creep: 'Creepster', cursive;
+  --font-gothic: 'Cinzel Decorative', serif;
+  --font-medieval: 'MedievalSharp', cursive;
+  --font-blackletter: 'UnifrakturMaguntia', 'Pirata One', cursive;
+  --font-pirata: 'Pirata One', cursive;
+
+  --color-abyss: #07030A;
+  --color-crypt: #0E0716;
+  --color-crypt-panel: #160B22;
+  --color-pumpkin: #FF7518;
+  --color-pumpkin-hover: #ff8b38;
+  --color-witch: #6A0DAD;
+  --color-witch-dark: #3F0766;
+  --color-ectoplasm: #39FF14;
+  --color-bone: #E6E1DC;
+  --color-bone-muted: #8C8494;
+}
+
+/* Custom Gothic & Synthwave Utilities */
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #06020A;
+  color: #E6E1DC;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(106, 13, 173, 0.15), transparent 45%),
+    radial-gradient(circle at 10% 40%, rgba(255, 117, 24, 0.05), transparent 35%),
+    radial-gradient(circle at 90% 70%, rgba(57, 255, 20, 0.04), transparent 30%);
+}
+
+.font-gothic {
+  font-family: 'Cinzel Decorative', 'Syne', serif;
+  letter-spacing: 0.06em;
+}
+
+.font-blackletter {
+  font-family: 'UnifrakturMaguntia', 'Pirata One', cursive;
+}
+
+.font-medieval {
+  font-family: 'MedievalSharp', cursive;
+}
+
+.font-pirata {
+  font-family: 'Pirata One', cursive;
+  letter-spacing: 0.04em;
+}
+
+h1, h2, h3, .font-syne {
+  font-family: 'Cinzel Decorative', 'Syne', serif;
+}
+
+/* Gravure sur pierre sépulcrale */
+.text-engraved {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), 0 0 10px rgba(223, 183, 255, 0.3);
+}
+
+.text-engraved-gold {
+  text-shadow: 0 1px 2px #000, 0 0 12px rgba(255, 117, 24, 0.6);
+}
+
+.text-engraved-green {
+  text-shadow: 0 1px 2px #000, 0 0 12px rgba(57, 255, 20, 0.7);
+}
+
+.font-mono-relic {
+  font-family: 'Space Mono', monospace;
+}
+
+.font-spooky {
+  font-family: 'Creepster', cursive;
+}
+
+/* Neon Glows */
+.glow-pumpkin {
+  box-shadow: 0 0 20px rgba(255, 117, 24, 0.45);
+}
+
+.glow-pumpkin-lg {
+  box-shadow: 0 0 35px rgba(255, 117, 24, 0.6);
+}
+
+.glow-witch {
+  box-shadow: 0 0 25px rgba(106, 13, 173, 0.45);
+}
+
+.glow-ectoplasm {
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+}
+
+.text-glow-pumpkin {
+  text-shadow: 0 0 12px rgba(255, 117, 24, 0.7);
+}
+
+.text-glow-witch {
+  text-shadow: 0 0 16px rgba(213, 164, 255, 0.6);
+}
+
+.text-glow-ectoplasm {
+  text-shadow: 0 0 14px rgba(57, 255, 20, 0.7);
+}
+
+/* Glassmorphism with Crypt Borders */
+.crypt-card {
+  background: rgba(18, 14, 23, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(106, 13, 173, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 32px rgba(0, 0, 0, 0.8);
+}
+
+.crypt-card-interactive {
+  background: rgba(28, 20, 36, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(106, 13, 173, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.crypt-card-interactive:hover {
+  border-color: rgba(57, 255, 20, 0.6);
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Vinyl rotation animation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+
+.animate-spin-slow-paused {
+  animation-play-state: paused;
+}
+
+/* Subtle flicker animation */
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.99;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.55;
+  }
+}
+
+.animate-flicker {
+  animation: flicker 4s infinite;
+}
+
+/* Spectral mist animation */
+@keyframes mist-drift {
+  0% {
+    transform: translateX(-5%) translateY(0%);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateX(5%) translateY(-3%);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateX(-5%) translateY(0%);
+    opacity: 0.2;
+  }
+}
+
+.animate-mist {
+  animation: mist-drift 12s ease-in-out infinite alternate;
+}
