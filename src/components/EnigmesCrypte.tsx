@@ -50,12 +50,13 @@ import {
   calculateGrimoireProgression,
   getRandomUnsolvedEnigma,
 } from '../game/enigmasLogic';
+import { TrackMetadata } from '../audio/audioEngine';
 
 interface EnigmesCrypteProps {
-  tracks?: Array<{ title: string; slug: string; [key: string]: any }>;
-  currentTrack?: { title: string; slug: string; [key: string]: any };
+  tracks?: TrackMetadata[];
+  currentTrack?: TrackMetadata;
   isPlaying?: boolean;
-  onSelectTrack?: (track: any) => void;
+  onSelectTrack?: (track: TrackMetadata) => void;
 }
 
 export const EnigmesCrypte: React.FC<EnigmesCrypteProps> = ({
@@ -166,7 +167,7 @@ export const EnigmesCrypte: React.FC<EnigmesCrypteProps> = ({
 
   // Validation de la réponse
   const handleValidate = () => {
-    let answer: any = null;
+    let answer: number | string | string[] | null = null;
 
     if (activeEnigma.type === 'choix_multiple') {
       if (selectedOption === null) return;
@@ -178,6 +179,8 @@ export const EnigmesCrypte: React.FC<EnigmesCrypteProps> = ({
       if (!anagramInput.trim()) return;
       answer = anagramInput;
     }
+
+    if (answer === null) return;
 
     const verification = verifyEnigmaAnswer(activeEnigma, answer);
 

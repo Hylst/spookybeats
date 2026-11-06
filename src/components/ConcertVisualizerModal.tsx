@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { TrackMetadata, audioEngine } from '../audio/audioEngine';
 import { playEctoClick } from '../audio/sfx';
+import { getAssetUrl } from '../utils/assetPath';
 
 interface ConcertVisualizerModalProps {
   isOpen: boolean;
@@ -348,7 +349,7 @@ export const ConcertVisualizerModal: React.FC<ConcertVisualizerModalProps> = ({
               alt={currentTrack.title}
               className="w-12 h-12 rounded-xl object-cover border border-[#6A0DAD]/50 shrink-0"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = 'https://hylst.fr/hml/the_umbral_descent.webp';
+                (e.target as HTMLImageElement).src = getAssetUrl('assets/gothic_vinyl_sarcophagus.webp');
               }}
             />
             <div className="min-w-0">

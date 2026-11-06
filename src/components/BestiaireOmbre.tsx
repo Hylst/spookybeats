@@ -295,7 +295,7 @@ export const BestiaireOmbre: React.FC = () => {
             <span className="text-[11px] font-mono text-[#8C8494] hidden sm:inline">Tri :</span>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+              onChange={(e) => setSortBy(e.target.value as 'danger-desc' | 'danger-asc' | 'name' | 'dread')}
               className="bg-[#0A0312] border border-[#6A0DAD]/50 rounded-lg px-2.5 py-1.5 text-xs font-mono text-[#DFB7FF] focus:border-[#39FF14] focus:outline-none"
             >
               <option value="danger-desc">Péril Décroissant (💀 V à I)</option>

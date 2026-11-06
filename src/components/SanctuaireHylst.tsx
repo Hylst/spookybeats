@@ -586,7 +586,7 @@ export const SanctuaireHylst: React.FC<SanctuaireHylstProps> = ({
                     className="w-10 h-10 rounded-lg object-cover border border-[#6A0DAD]/40 shrink-0"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src =
-                        'https://hylst.fr/hml/the_umbral_descent.webp';
+                        getAssetUrl('assets/gothic_vinyl_sarcophagus.webp');
                     }}
                   />
 
