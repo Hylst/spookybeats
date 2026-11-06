@@ -16,6 +16,7 @@ import { AudioConfigModal } from './components/AudioConfigModal';
 import { GothicCobwebCorner, DrippingBloodAccent } from './components/GothicDecorations';
 import { GothicCreaturesOverlay } from './components/GothicCreaturesOverlay';
 import { CryptLoader } from './components/CryptLoader';
+import { ScrollTopButton } from './components/ScrollTopButton';
 import { audioEngine, DEFAULT_TRACKS, TrackMetadata } from './audio/audioEngine';
 import { getTrackLore } from './audio/trackLore';
 import { setSfxMuted } from './audio/sfx';
@@ -197,6 +198,40 @@ export default function App() {
     localStorage.setItem('spookybeats_high_score', newScore.toString());
   };
 
+  // Raccourcis clavier globaux (Espace = Play/Pause, M = Mute, Alt+Droite/Gauche = Piste suivante/precedente)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeEl = document.activeElement;
+      const tagName = activeEl?.tagName;
+      const isInput =
+        tagName === 'INPUT' ||
+        tagName === 'TEXTAREA' ||
+        tagName === 'SELECT' ||
+        (activeEl as HTMLElement)?.isContentEditable;
+
+      // On evite d'intercepter la frappe dans les champs texte
+      if (isInput) return;
+
+      if (e.code === 'Space') {
+        if (tagName === 'BUTTON') return;
+        e.preventDefault();
+        handleTogglePlay();
+      } else if (e.key === 'm' || e.key === 'M') {
+        e.preventDefault();
+        handleToggleMute();
+      } else if (e.altKey && e.key === 'ArrowRight') {
+        e.preventDefault();
+        handleNextTrack();
+      } else if (e.altKey && e.key === 'ArrowLeft') {
+        e.preventDefault();
+        handlePrevTrack();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [tracks]);
+
   // Ambiance visuelle en fonction du niveau d'effroi (potions)
   const horrorFilterClass =
     horrorLevel === 3
@@ -347,6 +382,9 @@ export default function App() {
           <InfoSection onNavigate={navigateWithFade} />
         )}
       </main>
+
+      {/* Bouton retour en haut de crypte */}
+      <ScrollTopButton />
 
       {/* Barre de navigation inferieure gothique */}
       <Navigation currentScreen={currentScreen} onNavigate={navigateWithFade} />
