@@ -262,7 +262,7 @@ export const TarotDestinModal: React.FC<TarotDestinModalProps> = ({
                       </span>
                     </div>
                     <p className="text-xs font-mono text-[#FF7518] italic">
-                      « {selectedGalleryCard.latinMotto} » — {selectedGalleryCard.subtitle}
+                      « {selectedGalleryCard.latinMotto} » - {selectedGalleryCard.subtitle}
                     </p>
                     <p className="text-xs text-[#EADCF8] font-serif leading-relaxed">
                       <strong className="text-[#39FF14]">Prophétie Droite :</strong>{' '}

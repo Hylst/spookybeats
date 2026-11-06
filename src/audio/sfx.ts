@@ -665,8 +665,12 @@ export function playMp3Sfx(
   try {
     stopCurrentMp3Sfx();
 
-    // Utilisation de la route proxyée /mp3/sfx/ avec fallback https://hylst.fr/mp3/sfx/
-    const audio = new Audio(`/mp3/sfx/${filename}`);
+    // En dev : proxy /mp3/sfx/, en production statique : accès direct https://hylst.fr/mp3/sfx/
+    const isDev = Boolean(typeof import.meta !== 'undefined' && import.meta.env?.DEV);
+    const primaryUrl = isDev ? `/mp3/sfx/${filename}` : `https://hylst.fr/mp3/sfx/${filename}`;
+    const fallbackUrl = `https://hylst.fr/mp3/sfx/${filename}`;
+
+    const audio = new Audio(primaryUrl);
     audio.crossOrigin = 'anonymous';
 
     // Volume proportionnel : si une musique joue, les clics volontaires de la soundboard restent clairs sans saturer
@@ -674,8 +678,8 @@ export function playMp3Sfx(
     audio.volume = Math.min(1.0, Math.max(0.05, baseVol * (isVoluntary ? 1.0 : 0.3)));
 
     audio.addEventListener('error', () => {
-      if (!audio.src.startsWith('https://hylst.fr')) {
-        audio.src = `https://hylst.fr/mp3/sfx/${filename}`;
+      if (audio.src !== fallbackUrl) {
+        audio.src = fallbackUrl;
         audio.play().catch(() => {});
       }
     });

@@ -1,3 +1,4 @@
+import { getAssetUrl } from '../utils/assetPath';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -244,7 +245,7 @@ export const HauntedManor3D: React.FC = () => {
 
     // Panoramique Ciel Nocturne Gothique (Texture générée haute fidélité)
     const textureLoader = new THREE.TextureLoader();
-    const skyTexture = textureLoader.load('/src/assets/images/manor_haunted_night_skybox_1793965925396.jpg');
+    const skyTexture = textureLoader.load(getAssetUrl('assets/manor_haunted_night_skybox.jpg'));
     const skyGeo = new THREE.CylinderGeometry(75, 75, 60, 32, 1, true);
     const skyMat = new THREE.MeshBasicMaterial({ 
       map: skyTexture, 

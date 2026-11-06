@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 
-// SpookyBeats — Application musicale Halloween par Geoffroy Streit (Hylst)
+// SpookyBeats - Application musicale Halloween par Geoffroy Streit (Hylst)
 // Build statique Nginx/Coolify : adapter `base` selon le chemin de déploiement.
 // Si déployé à la racine du domaine : base: '/'
 // Si déployé sous /spookybeats/ : base: '/spookybeats/'

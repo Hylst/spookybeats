@@ -1,11 +1,11 @@
-# 📋 TODO — SpookyBeats
+# 📋 TODO - SpookyBeats
 
 > Suivi des tâches prioritaires pour la production et l'amélioration continue.
-> Auteur : Geoffroy Streit (Hylst) — Mise à jour : 2026-11-06
+> Auteur : Geoffroy Streit (Hylst) - Mise à jour : 2026-11-06
 
 ---
 
-## 🔴 CRITIQUE — À faire avant déploiement Coolify
+## 🔴 CRITIQUE - À faire avant déploiement Coolify
 
 - [x] Supprimer dépendances AI Studio : `@google/genai`, `express`, `dotenv`, `@types/express`
 - [x] Renommer `name` dans `package.json` : `"react-example"` → `"spookybeats"`
@@ -24,7 +24,7 @@
 
 ---
 
-## 🟠 IMPORTANT — Corrections de code
+## 🟠 IMPORTANT - Corrections de code
 
 - [x] **Image `/src/assets/images/hylst_organ_sanctuary_...jpg`** référencée directement dans `SanctuaireHylst.tsx` → Corrigé avec import ESM Vite bundlé
 - [x] **Extraction des données SFX** dans `src/audio/hylstSfxData.ts` pour découpler tests et UI
@@ -37,18 +37,18 @@
 
 ---
 
-## 🟡 AMÉLIORATIONS — UX & Design
+## 🟡 AMÉLIORATIONS - UX & Design
 
 - [ ] Ajouter `prefers-reduced-motion` CSS query respectant le toggle de `InfoSection.tsx`
 - [ ] Ajouter gestion du focus visible (outline) pour navigation au clavier (accessibilité WCAG)
 - [ ] Lazy loading des composants lourds (HauntedManor3D, BestiaireOmbre) via `React.lazy()`
-- [ ] Scroll-to-top automatique après navigation déjà présent — tester sur mobile réel
+- [ ] Scroll-to-top automatique après navigation déjà présent - tester sur mobile réel
 - [ ] Bouton "Retour en haut" pour les longs écrans (Grimoire, Bestiaire)
 - [ ] Transition de navigation : augmenter le `maxWidth` en mode `max-w-4xl` pour le studio
 
 ---
 
-## 🟢 FONCTIONNALITÉS — À envisager
+## 🟢 FONCTIONNALITÉS - À envisager
 
 - [ ] Mode hors-ligne PWA : Service Worker pour cache des pistes récemment jouées
 - [ ] Partage de piste : génération d'URL avec piste sélectionnée (`?track=the_umbral_descent`)

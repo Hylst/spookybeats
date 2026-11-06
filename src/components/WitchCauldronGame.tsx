@@ -1,3 +1,4 @@
+import { getAssetUrl } from '../utils/assetPath';
 import React, { useState, useEffect } from 'react';
 import {
   Flame,
@@ -146,7 +147,7 @@ export const WitchCauldronGame: React.FC<WitchCauldronGameProps> = ({
       <div className="relative rounded-2xl overflow-hidden border border-[#6A0DAD]/60 shadow-[0_0_30px_rgba(106,13,173,0.3)]">
         <div className="h-44 sm:h-52 w-full relative">
           <img
-            src="/assets/games/witch_cauldron.jpg"
+            src={getAssetUrl('assets/games/witch_cauldron.jpg')}
             alt="Laboratoire Alchimique de la Sorcière"
             className="w-full h-full object-cover object-center filter brightness-90 contrast-110"
           />

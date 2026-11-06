@@ -1,7 +1,7 @@
-# 🏗️ Structure — SpookyBeats
+# 🏗️ Structure - SpookyBeats
 
 > Documentation de l'architecture complète du projet.
-> Auteur : Geoffroy Streit (Hylst) — 2026-11-06
+> Auteur : Geoffroy Streit (Hylst) - 2026-11-06
 
 ---
 
@@ -17,15 +17,15 @@ spookybeats/
 ├── .env.example                  # Exemple de variables d'environnement
 ├── README.md                     # Documentation principale
 ├── todo.md                       # Tâches à faire
-├── structure.md                  # Ce fichier — architecture
+├── structure.md                  # Ce fichier - architecture
 ├── features.md                   # Inventaire des fonctionnalités
 ├── agents.md                     # Suggestions pour agents IA futurs
 ├── CHANGELOG.md                  # Historique des versions
 │
 ├── public/                       # Assets statiques (copiés tels quels)
-│   ├── favicon.png               # À créer — 32×32px
-│   ├── icon.png                  # À créer — 128×128px
-│   ├── og-image.png              # À créer — 1200×630px
+│   ├── favicon.png               # À créer - 32×32px
+│   ├── icon.png                  # À créer - 128×128px
+│   ├── og-image.png              # À créer - 1200×630px
 │   ├── robots.txt                # À créer
 │   └── assets/
 │       ├── bestiary/             # Images créatures du bestiaire
@@ -35,7 +35,7 @@ spookybeats/
 │
 └── src/
     ├── main.tsx                  # Point d'entrée React
-    ├── App.tsx                   # Composant racine — routing + état global
+    ├── App.tsx                   # Composant racine - routing + état global
     ├── index.css                 # Tailwind + thème gothique custom
     │
     ├── components/               # Composants UI React

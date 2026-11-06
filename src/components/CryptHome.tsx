@@ -1,3 +1,4 @@
+import { getAssetUrl } from '../utils/assetPath';
 import { 
   Skull, 
   Sparkles, 
@@ -79,7 +80,7 @@ export const CryptHome: React.FC<CryptHomeProps> = ({
           {/* Illustration cinématique gothique du manoir et de la crypte */}
           <div className="relative h-56 sm:h-64 w-full overflow-hidden rounded-xl">
             <img
-              src="/src/assets/images/crypt_manor_hero_banner_1793965923581.jpg"
+              src={getAssetUrl('assets/crypt_manor_hero_banner.jpg')}
               alt="Manoir et crypte gothique sous la lune de Samhain"
               className="w-full h-full object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-1000 filter brightness-95 contrast-110"
               onError={(e) => {

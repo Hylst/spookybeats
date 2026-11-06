@@ -26,8 +26,10 @@ export interface TrackMetadata {
 }
 
 export function resolveAudioUrl(url: string): string {
-  if (url.startsWith('https://hylst.fr/hml/')) {
-    // Utiliser le proxy local /hml/ pour éliminer tout problème CORS et alimenter l'analyseur de spectre
+  // En mode dev local, Vite proxyfie /hml/ vers https://hylst.fr/hml/ pour contourner CORS
+  // En production statique (Coolify Nginx), charger directement depuis https://hylst.fr/hml/
+  const isDev = Boolean(typeof import.meta !== 'undefined' && import.meta.env?.DEV);
+  if (isDev && url.startsWith('https://hylst.fr/hml/')) {
     return url.replace('https://hylst.fr/hml/', '/hml/');
   }
   return url;

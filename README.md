@@ -1,6 +1,6 @@
 # SpookyBeats 🎃🕷️
 
-**Expérience Sonore Gothique & Halloween — par Geoffroy Streit (Hylst)**
+**Expérience Sonore Gothique & Halloween - par Geoffroy Streit (Hylst)**
 
 > *« Je suis concepteur / développeur d'applications, mais également artiste éclectique, bancal et passionné. »*
 
@@ -8,7 +8,7 @@
 
 ## Présentation
 
-SpookyBeats est une application web Halloween 100% frontend — plateforme musicale immersive et gothique créée par Geoffroy Streit (alias **Hylst**).
+SpookyBeats est une application web Halloween 100% frontend - plateforme musicale immersive et gothique créée par Geoffroy Streit (alias **Hylst**).
 
 **19 compositions originales** mêlant synthèse soustractive, violoncelles spectraux, orgue baroque, montage et masterisation sur DAW. L'IA est intervenue comme outil d'inspiration, non comme compositeur.
 
@@ -32,16 +32,16 @@ SpookyBeats est une application web Halloween 100% frontend — plateforme music
 
 - **React 19** + **TypeScript 7** + **Tailwind CSS 4**
 - **Vite 8** (build statique)
-- **Web Audio API** — moteur audio complet : FFT, égaliseur biquad, réverbération, 8D spatial
-- **Three.js** — rendu 3D WebGL procédural
-- **SFX procéduraux** — tous les effets sonores UI générés en code pur (zéro fichier)
+- **Web Audio API** - moteur audio complet : FFT, égaliseur biquad, réverbération, 8D spatial
+- **Three.js** - rendu 3D WebGL procédural
+- **SFX procéduraux** - tous les effets sonores UI générés en code pur (zéro fichier)
 - **70+ tests unitaires** via runner natif Node.js
 
 ## Audio
 
 Les 19 pistes MP3 et 22 SFX sont hébergés sur **https://hylst.fr** :
-- `/hml/*.mp3` — Compositions principales
-- `/mp3/sfx/*.mp3` — Effets sonores originaux
+- `/hml/*.mp3` - Compositions principales
+- `/mp3/sfx/*.mp3` - Effets sonores originaux
 
 Le proxy Vite (`/hml/` → `https://hylst.fr/hml/`) est actif en développement pour contourner le CORS de l'analyseur de spectre. En production statique, le fallback URL directe prend le relais automatiquement.
 
@@ -87,11 +87,11 @@ location /spookybeats/ {
 
 ## Auteur
 
-**Geoffroy Streit** — alias **Hylst**
+**Geoffroy Streit** - alias **Hylst**
 - Site officiel : [hylst.fr](https://hylst.fr)
 - Catalogue musical, créations artistiques et projets de développement.
 
 ## Licence
 
 Code source : MIT
-Compositions musicales et SFX : © Geoffroy Streit (Hylst) — tous droits réservés
+Compositions musicales et SFX : © Geoffroy Streit (Hylst) - tous droits réservés

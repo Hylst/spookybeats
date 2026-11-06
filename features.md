@@ -1,7 +1,7 @@
-# ✨ Features — SpookyBeats
+# ✨ Features - SpookyBeats
 
 > Inventaire complet des fonctionnalités existantes et suggestions d'améliorations.
-> Auteur : Geoffroy Streit (Hylst) — 2026-11-06
+> Auteur : Geoffroy Streit (Hylst) - 2026-11-06
 
 ---
 
@@ -14,7 +14,7 @@
 | Lecteur MP3 avec 19 pistes | ✅ | Web Audio API + HTMLAudioElement |
 | Analyseur de spectre FFT temps réel | ✅ | 128 bins, smoothing 0.82 |
 | Égaliseur paramétrique 3 bandes | ✅ | Low 120Hz / Mid 1.2kHz / High 6kHz |
-| Réverbération de crypte (delay) | ✅ | Niveau configurable 0–1 |
+| Réverbération de crypte (delay) | ✅ | Niveau configurable 0-1 |
 | Mode Audio 8D spatial | ✅ | StereoPanner animé en sinus |
 | Mode Cathédrale reverb | ✅ | Toggle |
 | Crossfade entre pistes (500ms) | ✅ | Fondu sortant + entrant |
@@ -93,7 +93,7 @@
 
 | Fonctionnalité | Statut |
 |----------------|--------|
-| Orgue baroque virtuel 8 notes (C3–C4) | ✅ |
+| Orgue baroque virtuel 8 notes (C3-C4) | ✅ |
 | 3 registres : Cathédrale / Bourdon / Spectral | ✅ |
 | Polyphonie synthèse Web Audio | ✅ |
 | Soundboard 22 SFX MP3 originaux Hylst | ✅ |

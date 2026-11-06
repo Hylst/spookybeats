@@ -1,13 +1,13 @@
-# Changelog — SpookyBeats
+# Changelog - SpookyBeats
 
 Toutes les modifications notables de ce projet sont documentées ici.
 Format : [Semantic Versioning](https://semver.org/lang/fr/)
 
 ---
 
-## [1.0.0] — 2026-11-06
+## [1.0.0] - 2026-11-06
 
-### 🎉 Première version stable — Nettoyage & Production-ready
+### 🎉 Première version stable - Nettoyage & Production-ready
 
 #### Corrections (héritages template AI Studio supprimés)
 - **Retiré** dépendance `@google/genai` (aucun usage dans le code)
@@ -41,15 +41,15 @@ Format : [Semantic Versioning](https://semver.org/lang/fr/)
 - **Build statique Vite** validé et testé sans warning
 
 #### Documentation
-- **Créé** `todo.md` — liste de tâches prioritaires
-- **Créé** `structure.md` — architecture complète du projet
-- **Créé** `features.md` — inventaire fonctionnalités + suggestions d'améliorations
-- **Créé** `agents.md` — guide pour agents IA futurs
-- **Créé** `CHANGELOG.md` — ce fichier
+- **Créé** `todo.md` - liste de tâches prioritaires
+- **Créé** `structure.md` - architecture complète du projet
+- **Créé** `features.md` - inventaire fonctionnalités + suggestions d'améliorations
+- **Créé** `agents.md` - guide pour agents IA futurs
+- **Créé** `CHANGELOG.md` - ce fichier
 
 ---
 
-## [0.9.0] — 2026-11-01 (Initial AI Studio Build)
+## [0.9.0] - 2026-11-01 (Initial AI Studio Build)
 
 ### Version initiale générée depuis AI Studio
 
@@ -65,7 +65,7 @@ Format : [Semantic Versioning](https://semver.org/lang/fr/)
 - 20 créatures bestiaire avec taxonomie et duels
 - 18 énigmes + Tarot du Destin
 - 16 chroniques grimoire
-- Orgue baroque virtuel 8 notes (C3–C4) avec 3 registres
+- Orgue baroque virtuel 8 notes (C3-C4) avec 3 registres
 - Faune gothique interactive : araignées, chauves-souris, sorcière, citrouilles
 - 70+ tests unitaires automatisés (logique game découplée)
 - Accessibilité partielle : brume configurable, contraste renforcé, réduction mouvements

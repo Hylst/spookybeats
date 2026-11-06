@@ -1,3 +1,4 @@
+import { getAssetUrl } from '../utils/assetPath';
 import React, { useState, useEffect } from 'react';
 import {
   Play,
@@ -129,11 +130,11 @@ export const PhantomPlayer: React.FC<PhantomPlayerProps> = ({
 
             {/* Illustration WebP de la piste ou Vinyle Collector Or Occulte */}
             <img
-              src={isCollectorView ? '/src/assets/images/gothic_vinyl_sarcophagus_1793965924636.jpg' : currentTrack.coverArt}
+              src={isCollectorView ? getAssetUrl('assets/gothic_vinyl_sarcophagus.jpg') : currentTrack.coverArt}
               alt={currentTrack.title}
               onError={(e) => {
                 // Si l'image externe échoue, afficher le vinyle collector généré
-                (e.target as HTMLImageElement).src = '/src/assets/images/gothic_vinyl_sarcophagus_1793965924636.jpg';
+                (e.target as HTMLImageElement).src = getAssetUrl('assets/gothic_vinyl_sarcophagus.jpg');
               }}
               className="w-full h-full object-cover filter contrast-125 brightness-95 transition-all duration-700"
             />
