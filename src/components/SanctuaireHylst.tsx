@@ -182,7 +182,7 @@ export const SanctuaireHylst: React.FC<SanctuaireHylstProps> = ({
                 </span>
               </div>
               <span className="px-2.5 py-0.5 rounded-full bg-[#241738] border border-[#39FF14]/50 text-[10px] font-mono text-[#39FF14] font-bold">
-                App réalisée par Hylst avec assistance IA (code)
+                App réalisée par Hylst avec assistance IA (code) • Images générées par IA
               </span>
             </div>
             <p className="text-sm font-semibold text-white leading-relaxed">
@@ -195,7 +195,7 @@ export const SanctuaireHylst: React.FC<SanctuaireHylstProps> = ({
           </div>
 
           <p className="text-xs sm:text-sm text-[#C8C2D4] leading-relaxed">
-            Geoffroy pour ses musiques a expérimenté, pour le plaisir, en plus de générations d'échantillons de musique par IA, des arrangements orchestraux dans un DAW, du traitement du son, des enregistrements et des boucles thématiques, de la programmation / séquençage / génération de patterns, des boîtes à rythme, du voice to midi (Dubler), et du mixage audio.
+            Geoffroy pour ses musiques a expérimenté, au gré des titres et de ses envies, souvent dans le cadre de musiques d'ambiances voulues dédiées à des jeux de rôle, de société ou vidéo, pour le plaisir, en plus de générations d'échantillons de musique par IA, des arrangements orchestraux dans un DAW, du traitement du son, des enregistrements et des boucles thématiques, de la programmation / séquençage / génération de patterns, des boîtes à rythme, du voice to midi (Dubler), et du mixage audio.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -623,7 +623,7 @@ export const SanctuaireHylst: React.FC<SanctuaireHylstProps> = ({
       {/* Badge de Réalisation & Paternité */}
       <footer className="text-center text-[11px] text-[#A69EAF] font-mono py-3 border-t border-[#6A0DAD]/30 space-y-1">
         <div className="font-bold text-[#39FF14]">
-          App réalisée par Hylst avec assistance IA (code)
+          App réalisée par Hylst avec assistance IA (code) • Images générées par IA
         </div>
         <div className="text-[10px] text-[#8C8494]">
           Geoffroy Streit alias Hylst • Compositions, mixage DAW et design sonore • hylst.fr
