@@ -5,6 +5,28 @@ Format : [Semantic Versioning](https://semver.org/lang/fr/)
 
 ---
 
+## [1.1.0] - 2026-11-06
+
+### 🚀 Optimisations Performance & Confort de Lecture
+
+#### Performance & Bundle Splitting
+- **Code-splitting React.lazy()** pour tous les écrans interactifs secondaires (`HauntedManor3D`, `BestiaireOmbre`, `HalloweenBeatPad`, `MiniGamesHub`, `GrimoireLegendes`, `SanctuaireHylst`, `EnigmesCrypte`).
+- **Composant `CryptLoader.tsx`** : écran de chargement gothique avec crâne animé, étincelles et barres d'invocation spectrales pour les transitions lazy.
+- **Réduction drastique du bundle initial** : `index.js` passe de **1 389 kB à 410 kB (-70.4%)**, Three.js étant désormais isolé dans le chunk du manoir 3D.
+- **Conversion WebP de 31 images JPEG** : compression via ffmpeg (`scale=1024`, qualité 80), économisant ~24 Mo (-84% en moyenne) et suppression des originaux `.jpg`.
+
+#### Navigation & Deep-Linking
+- **Support complet du hash URL** (`#crypte`, `#lecteur`, `#caveau`, `#studio`, `#massacre`, `#manoir`, `#bestiaire`, `#enigmes`, `#legendes`, `#sanctuaire`, `#info`).
+- **Synchronisation avec l'historique navigateur** (`pushState` / écouteur `hashchange`) permettant le retour arrière / avance avec les boutons du navigateur sans rechargement de page.
+
+#### Lecteur Audio & Confort
+- **Mode aléatoire (Shuffle)** : sélection aléatoire intelligente lors du clic suivant/précédent, activable/désactivable avec retour haptique et sonore.
+- **Mode répétition (Loop/Repeat)** : bascule entre boucle continue de la piste courante et auto-enchaînement à la fin du morceau.
+- **Persistance localStorage** : sauvegarde et restauration automatique du volume sonore, de la dernière piste écoutée, et de l'état des modes Shuffle et Loop.
+- **77/77 tests unitaires** passés au vert (ajout du test de non-régression pour Shuffle, Loop et Volume).
+
+---
+
 ## [1.0.0] - 2026-11-06
 
 ### 🎉 Première version stable - Nettoyage & Production-ready

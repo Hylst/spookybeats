@@ -449,12 +449,43 @@ class AudioEngine {
   private isMuted: boolean = false;
   private volume: number = 0.85;
   private isCathédraleReverb: boolean = false;
+  private isShuffle: boolean = false;
+  private isLoop: boolean = true;
   private recordingDest: MediaStreamAudioDestinationNode | null = null;
 
   // Listeners
   private onTrackChangeCallbacks: ((track: TrackMetadata) => void)[] = [];
   private onPlayStateChangeCallbacks: ((isPlaying: boolean) => void)[] = [];
   private onTimeUpdateCallbacks: ((currentTime: number, duration: number) => void)[] = [];
+
+  constructor() {
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const savedVol = localStorage.getItem('spookybeats_volume');
+        if (savedVol !== null) {
+          const v = parseFloat(savedVol);
+          if (!isNaN(v) && v >= 0 && v <= 1) this.volume = v;
+        }
+        const savedShuffle = localStorage.getItem('spookybeats_shuffle');
+        if (savedShuffle !== null) {
+          this.isShuffle = savedShuffle === '1';
+        }
+        const savedLoop = localStorage.getItem('spookybeats_loop');
+        if (savedLoop !== null) {
+          this.isLoop = savedLoop === '1';
+        }
+        const savedSlug = localStorage.getItem('spookybeats_last_track');
+        if (savedSlug) {
+          const found = DEFAULT_TRACKS.find(t => t.slug === savedSlug);
+          if (found) {
+            this.currentTrack = found;
+          }
+        }
+      } catch (e) {
+        // Ignorer les erreurs d'acces au stockage local
+      }
+    }
+  }
 
   public init() {
     if (this.audioCtx) return;
@@ -599,6 +630,46 @@ class AudioEngine {
     if (this.masterGain && this.audioCtx && !this.isMuted) {
       this.masterGain.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
     }
+    if (typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem('spookybeats_volume', this.volume.toString());
+      } catch (e) {
+        // ignore
+      }
+    }
+  }
+
+  public setShuffle(enabled: boolean) {
+    this.isShuffle = enabled;
+    if (typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem('spookybeats_shuffle', enabled ? '1' : '0');
+      } catch (e) {
+        // ignore
+      }
+    }
+  }
+
+  public getIsShuffle(): boolean {
+    return this.isShuffle;
+  }
+
+  public setLoop(enabled: boolean) {
+    this.isLoop = enabled;
+    if (this.currentAudioElement) {
+      this.currentAudioElement.loop = enabled;
+    }
+    if (typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem('spookybeats_loop', enabled ? '1' : '0');
+      } catch (e) {
+        // ignore
+      }
+    }
+  }
+
+  public getIsLoop(): boolean {
+    return this.isLoop;
   }
 
   public toggleMute(): boolean {
@@ -658,6 +729,13 @@ class AudioEngine {
     this.init();
     this.currentTrack = track;
     this.notifyTrackChange(track);
+    if (typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem('spookybeats_last_track', track.slug);
+      } catch (e) {
+        // ignore
+      }
+    }
 
     if (this.currentAudioElement && this.isPlaying) {
       this.crossfadeToNewTrack(track);
@@ -699,12 +777,18 @@ class AudioEngine {
     const audio = new Audio();
     // Pas de crossOrigin anonymous forcé qui bloquerait la lecture MP3
     audio.src = resolvedUrl;
-    audio.loop = true;
+    audio.loop = this.isLoop;
     audio.volume = this.isMuted ? 0 : this.volume;
     this.currentAudioElement = audio;
 
     audio.addEventListener('timeupdate', () => {
       this.notifyTimeUpdate(audio.currentTime, audio.duration || track.duration);
+    });
+
+    audio.addEventListener('ended', () => {
+      if (!this.isLoop) {
+        this.nextTrack();
+      }
     });
 
     audio.addEventListener('error', (e) => {
@@ -779,15 +863,35 @@ class AudioEngine {
   }
 
   public nextTrack(tracks: TrackMetadata[] = DEFAULT_TRACKS) {
-    const idx = tracks.findIndex(t => t.id === this.currentTrack.id);
-    const nextIdx = (idx + 1) % tracks.length;
-    this.playTrack(tracks[nextIdx]);
+    if (tracks.length === 0) return;
+    if (this.isShuffle && tracks.length > 1) {
+      const curIdx = tracks.findIndex(t => t.id === this.currentTrack.id);
+      let nextIdx = Math.floor(Math.random() * tracks.length);
+      if (nextIdx === curIdx) {
+        nextIdx = (nextIdx + 1) % tracks.length;
+      }
+      this.playTrack(tracks[nextIdx]);
+    } else {
+      const idx = tracks.findIndex(t => t.id === this.currentTrack.id);
+      const nextIdx = (idx + 1) % tracks.length;
+      this.playTrack(tracks[nextIdx]);
+    }
   }
 
   public prevTrack(tracks: TrackMetadata[] = DEFAULT_TRACKS) {
-    const idx = tracks.findIndex(t => t.id === this.currentTrack.id);
-    const prevIdx = (idx - 1 + tracks.length) % tracks.length;
-    this.playTrack(tracks[prevIdx]);
+    if (tracks.length === 0) return;
+    if (this.isShuffle && tracks.length > 1) {
+      const curIdx = tracks.findIndex(t => t.id === this.currentTrack.id);
+      let prevIdx = Math.floor(Math.random() * tracks.length);
+      if (prevIdx === curIdx) {
+        prevIdx = (prevIdx - 1 + tracks.length) % tracks.length;
+      }
+      this.playTrack(tracks[prevIdx]);
+    } else {
+      const idx = tracks.findIndex(t => t.id === this.currentTrack.id);
+      const prevIdx = (idx - 1 + tracks.length) % tracks.length;
+      this.playTrack(tracks[prevIdx]);
+    }
   }
 
   private stopCurrentAudio() {

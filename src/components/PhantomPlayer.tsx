@@ -40,8 +40,8 @@ export const PhantomPlayer: React.FC<PhantomPlayerProps> = ({
   const [duration, setDuration] = useState<number>(currentTrack.duration || 222);
   const [is8D, setIs8D] = useState<boolean>(false);
   const [isCathedrale, setIsCathedrale] = useState<boolean>(false);
-  const [isShuffle, setIsShuffle] = useState<boolean>(false);
-  const [isRepeat, setIsRepeat] = useState<boolean>(true);
+  const [isShuffle, setIsShuffle] = useState<boolean>(() => audioEngine.getIsShuffle());
+  const [isRepeat, setIsRepeat] = useState<boolean>(() => audioEngine.getIsLoop());
   const [activeLyricIndex, setActiveLyricIndex] = useState<number>(0);
   const [narratorState, setNarratorState] = useState<SpectralNarratorState>(spectralNarrator.getState());
   const [isCollectorView, setIsCollectorView] = useState<boolean>(false);
@@ -130,11 +130,11 @@ export const PhantomPlayer: React.FC<PhantomPlayerProps> = ({
 
             {/* Illustration WebP de la piste ou Vinyle Collector Or Occulte */}
             <img
-              src={isCollectorView ? getAssetUrl('assets/gothic_vinyl_sarcophagus.jpg') : currentTrack.coverArt}
+              src={isCollectorView ? getAssetUrl('assets/gothic_vinyl_sarcophagus.webp') : currentTrack.coverArt}
               alt={currentTrack.title}
               onError={(e) => {
                 // Si l'image externe échoue, afficher le vinyle collector généré
-                (e.target as HTMLImageElement).src = getAssetUrl('assets/gothic_vinyl_sarcophagus.jpg');
+                (e.target as HTMLImageElement).src = getAssetUrl('assets/gothic_vinyl_sarcophagus.webp');
               }}
               className="w-full h-full object-cover filter contrast-125 brightness-95 transition-all duration-700"
             />
@@ -203,13 +203,15 @@ export const PhantomPlayer: React.FC<PhantomPlayerProps> = ({
         <button
           onClick={() => {
             playEctoClick();
-            setIsShuffle(!isShuffle);
+            const next = !isShuffle;
+            setIsShuffle(next);
+            audioEngine.setShuffle(next);
           }}
           className={`p-2.5 rounded transition-all cursor-pointer ${
             isShuffle ? 'text-[#39FF14] shadow-[0_0_10px_rgba(57,255,20,0.3)]' : 'text-[#8C8494] hover:text-[#E6E1DC]'
           }`}
           aria-label="Mode aléatoire"
-          title="Lecture aléatoire"
+          title={isShuffle ? 'Lecture aléatoire active' : 'Activer lecture aléatoire'}
         >
           <Shuffle className="w-5 h-5" />
         </button>
@@ -261,13 +263,15 @@ export const PhantomPlayer: React.FC<PhantomPlayerProps> = ({
         <button
           onClick={() => {
             playEctoClick();
-            setIsRepeat(!isRepeat);
+            const next = !isRepeat;
+            setIsRepeat(next);
+            audioEngine.setLoop(next);
           }}
           className={`p-2.5 rounded transition-all cursor-pointer ${
             isRepeat ? 'text-[#FF7518] shadow-[0_0_10px_rgba(255,117,24,0.3)]' : 'text-[#8C8494] hover:text-[#E6E1DC]'
           }`}
           aria-label="Répéter la piste"
-          title="Répétition"
+          title={isRepeat ? 'Répétition active' : 'Activer répétition'}
         >
           <Repeat className="w-5 h-5" />
         </button>

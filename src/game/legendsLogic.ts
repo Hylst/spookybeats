@@ -121,7 +121,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Feuilles de chêne centenaire, baies de sorbier des oiseleurs et branches de bruyère noire séchées.',
     associatedTrackSlug: 'the_umbral_descent',
     associatedTrackTitle: 'The Umbral Descent',
-    imagePath: getAssetUrl('assets/grimoire/samhain_ritual.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/samhain_ritual.webp'),
     audioMood: 'mystique',
     divinationKeywords: ['Renouveau', 'Transition', 'Hommage aux racines', 'Purification par l’ombre'],
     divinationOracleReading: 'Samhain vous rappelle qu’avant chaque renaissance printanière, la graine doit accepter le silence et la noirceur féconde de la terre froide.'
@@ -148,7 +148,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Pommes sauvages acidulées, noisettes de coudrier et écorce de cannelle d’Orient.',
     associatedTrackSlug: 'la_marche_des_corps_silencieux',
     associatedTrackTitle: 'La Marche des Corps Silencieux',
-    imagePath: getAssetUrl('assets/grimoire/samhain_ritual.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/samhain_ritual.webp'),
     audioMood: 'mystique',
     divinationKeywords: ['Clairvoyance', 'Révélation de l’inconnu', 'Audace', 'Reflet intérieur'],
     divinationOracleReading: 'Ne craignez pas ce que révèle le miroir de vos pensées les plus secrètes : la vérité, même austère, délivre des illusions trompeuses.'
@@ -175,7 +175,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Feuilles de verveine sauvage, fleurs de sureau noir et résine d’ambre rouge.',
     associatedTrackSlug: 'spectral_reverie',
     associatedTrackTitle: 'Spectral Reverie',
-    imagePath: getAssetUrl('assets/grimoire/witches_sabbath.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/witches_sabbath.webp'),
     audioMood: 'mystique',
     divinationKeywords: ['Inspiration suprême', 'Éveil artistique', 'Intuition fulgurante', 'Patience récompensée'],
     divinationOracleReading: 'L’étincelle de la créativité jaillit souvent d’un accident imprévu. Soyez attentif aux petits incidents du jour : ils abritent le génie de demain.'
@@ -206,7 +206,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Navet d’hiver ou citrouille creusée, cire d’abeille noire et clous de girofle piqués dans la pulpe.',
     associatedTrackSlug: 'gare_aux_sorcieres',
     associatedTrackTitle: 'Gare aux Sorcières',
-    imagePath: getAssetUrl('assets/grimoire/jack_lantern.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/jack_lantern.webp'),
     audioMood: 'tenebreux',
     divinationKeywords: ['Ruse excessive', 'Solitude de l’esprit', 'Pragmatisme', 'Lumière dans l’obscurité'],
     divinationOracleReading: 'À force de vouloir tromper tout le monde, on finit par s’enfermer dans sa propre solitude. Éclairez votre route sans chercher à éblouir les autres.'
@@ -233,7 +233,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Écorce de bouleau blanc, feuilles d’érable automnales séchées et clous en fer forgé forgés à froid.',
     associatedTrackSlug: 'la_marche_des_corps_silencieux',
     associatedTrackTitle: 'La Marche des Corps Silencieux',
-    imagePath: getAssetUrl('assets/grimoire/sleepy_hollow.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/sleepy_hollow.webp'),
     audioMood: 'dramatique',
     divinationKeywords: ['Poursuite implacable', 'Traumatisme du passé', 'Détermination féroce', 'Franchir le pont'],
     divinationOracleReading: 'Une obsession ancienne vous court après. N’ayez crainte : il suffit de franchir le pont symbolique d’une décision nette pour que le spectre s’évanouisse dans l’eau.'
@@ -260,7 +260,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Pétales de lys blancs séchés, branches d’aubépine et eau lustrale de source.',
     associatedTrackSlug: 'spectral_reverie',
     associatedTrackTitle: 'Spectral Reverie',
-    imagePath: getAssetUrl('assets/grimoire/banshee_mist.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/banshee_mist.webp'),
     audioMood: 'sepulcral',
     divinationKeywords: ['Avertissement bienveillant', 'Intuition du danger', 'Tristesse sublimée', 'Patience'],
     divinationOracleReading: 'Un signal discret vous invite à ralentir la cadence. Écoutez vos pressentiments avant d’aborder le prochain virage de votre vie.'
@@ -287,7 +287,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Roseaux des marais séchés, mousse de tourbe et copeaux d’écorce de saule pleureur.',
     associatedTrackSlug: 'echoes_of_the_forgotten',
     associatedTrackTitle: 'Echoes of the Forgotten',
-    imagePath: getAssetUrl('assets/grimoire/jack_lantern.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/jack_lantern.webp'),
     audioMood: 'tenebreux',
     divinationKeywords: ['Mirage', 'Prudence indispensable', 'Méfiance des paillettes', 'Recentrage'],
     divinationOracleReading: 'Toutes les lumières qui scintillent ne sont pas des havres de paix. Rejetez les propositions trop alléchantes qui vous éloignent de votre chemin d’origine.'
@@ -318,7 +318,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Wolfsbane (aconit tue-loup) séché avec précaution, baies de genièvre et fleurs de millepertuis.',
     associatedTrackSlug: 'l_eveil_des_lycanthropes',
     associatedTrackTitle: 'L’Éveil des Lycanthropes',
-    imagePath: getAssetUrl('assets/grimoire/samhain_ritual.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/samhain_ritual.webp'),
     audioMood: 'dramatique',
     divinationKeywords: ['Instinct sauvage', 'Force brute refoulée', 'Dualité de l’âme', 'Maîtrise des colères'],
     divinationOracleReading: 'Votre énergie brute demande à être canalisée plutôt que réprimée. Donnez une expression artistique ou physique à votre feu intérieur.'
@@ -345,7 +345,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Feuilles séchées de belladone (symbolique), fleurs de lavande noire et graines de pavot somnifère.',
     associatedTrackSlug: 'blood_moon_ritual',
     associatedTrackTitle: 'Blood Moon Ritual',
-    imagePath: getAssetUrl('assets/grimoire/witches_sabbath.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/witches_sabbath.webp'),
     audioMood: 'tenebreux',
     divinationKeywords: ['Affranchissement des règles', 'Pouvoir collectif', 'Magie féminine', 'Audace transgressive'],
     divinationOracleReading: 'Il est parfois nécessaire de briser les habitudes établies pour retrouver votre liberté d’action. Réinventez vos propres rituels quotidiens.'
@@ -372,7 +372,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Gousses d’ail noir fermenté, branches d’aubépine épineuse et fleurs d’églantier rouge.',
     associatedTrackSlug: 'the_vampire_masquerade',
     associatedTrackTitle: 'The Vampire Masquerade',
-    imagePath: getAssetUrl('assets/grimoire/sleepy_hollow.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/sleepy_hollow.webp'),
     audioMood: 'dramatique',
     divinationKeywords: ['Énergie vitale', 'Frontières personnelles', 'Séduction sombre', 'Préservation de son sang'],
     divinationOracleReading: 'Prenez garde aux personnes énergivores qui drainent votre enthousiasme. Protégez votre temps précieux comme votre bien le plus cher.'
@@ -399,7 +399,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Mousse de calcaire ancien, feuilles de lierre grimpant et copeaux d’ardoise noire.',
     associatedTrackSlug: 'organ_of_the_damned',
     associatedTrackTitle: 'Organ of the Damned',
-    imagePath: getAssetUrl('assets/grimoire/danse_macabre.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/danse_macabre.webp'),
     audioMood: 'sepulcral',
     divinationKeywords: ['Protection vigilante', 'Caractère inébranlable', 'Hauteur de vue', 'Résilience'],
     divinationOracleReading: 'Adoptez la posture de la gargouille : observez les tempêtes passagères depuis les hauteurs de votre sérénité sans vous laisser ébranler.'
@@ -430,7 +430,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Fleurs d’immortelles jaunes séchées, branches d’if millénaire et poudre de marbre blanc.',
     associatedTrackSlug: 'danse_macabre_techno',
     associatedTrackTitle: 'Danse Macabre Techno',
-    imagePath: getAssetUrl('assets/grimoire/danse_macabre.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/danse_macabre.webp'),
     audioMood: 'dramatique',
     divinationKeywords: ['Égalité', 'Lâcher-prise', 'Fête malgré les peines', 'Humour libérateur'],
     divinationOracleReading: 'Riez de vos tracas : la vie est trop courte pour s’encombrer de solennités inutiles. Rejoignez la danse du présent.'
@@ -457,7 +457,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Feuilles de saule blanc, mousse des tourbières et fleurs d’asphodèle printanier.',
     associatedTrackSlug: 'echoes_of_the_forgotten',
     associatedTrackTitle: 'Echoes of the Forgotten',
-    imagePath: getAssetUrl('assets/grimoire/banshee_mist.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/banshee_mist.webp'),
     audioMood: 'sepulcral',
     divinationKeywords: ['Élégie nécessaire', 'Respect du deuil', 'Annonce de transformation', 'Dignité'],
     divinationOracleReading: 'Une étape de votre existence touche à sa fin naturelle. Accueillez la mélancolie avec douceur : elle nettoie l’âme pour préparer l’avenir.'
@@ -484,7 +484,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Argile rouge de rivière séchée, graines de lin et résine d’oliban impérial.',
     associatedTrackSlug: 'alchemical_transmutation',
     associatedTrackTitle: 'Alchemical Transmutation',
-    imagePath: getAssetUrl('assets/grimoire/samhain_ritual.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/samhain_ritual.webp'),
     audioMood: 'dramatique',
     divinationKeywords: ['Protection colossale', 'Puissance de l’écriture', 'Discipline indispensable', 'Création concrète'],
     divinationOracleReading: 'Vos projets ont désormais la force d’un titan. Veillez toutefois à en garder la maîtrise éclairée pour ne point être dépassé par votre propre élan.'
@@ -515,7 +515,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Café noir serré, copeaux de bois de lutherie et étincelles d’inspiration nocturne.',
     associatedTrackSlug: 'danse_macabre_techno',
     associatedTrackTitle: 'Danse Macabre Techno',
-    imagePath: getAssetUrl('assets/grimoire/danse_macabre.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/danse_macabre.webp'),
     audioMood: 'mystique',
     divinationKeywords: ['Créativité authentique', 'Alliage moderne & ancien', 'Passion d’artiste', 'Dépassement'],
     divinationOracleReading: 'Soyez l’artisan de votre propre légende. N’ayez pas peur de combiner vos passions éclectiques pour bâtir une œuvre singulière qui vous ressemble.'
@@ -542,7 +542,7 @@ export const ALL_LEGENDS: LegendItem[] = [
     botanicalPreservation: 'Graines de citrouille torréfiées au miel noir, feuilles de vigne vierge et zestes d’orange confite.',
     associatedTrackSlug: 'gare_aux_sorcieres',
     associatedTrackTitle: 'Gare aux Sorcières',
-    imagePath: getAssetUrl('assets/grimoire/jack_lantern.jpg'),
+    imagePath: getAssetUrl('assets/grimoire/jack_lantern.webp'),
     audioMood: 'mystique',
     divinationKeywords: ['Joie communicative', 'Humour complice', 'Fortune inattendue', 'Légèreté d’esprit'],
     divinationOracleReading: 'La vie n’est pas qu’une affaire solennelle : autorisez-vous des éclats de rire joyeux face aux absurdités du destin.'

@@ -153,7 +153,7 @@ export const GraveLabyrinthGame: React.FC<GraveLabyrinthGameProps> = ({
       <div className="relative rounded-2xl overflow-hidden border border-[#39FF14]/50 shadow-[0_0_30px_rgba(57,255,20,0.2)]">
         <div className="h-44 sm:h-52 w-full relative">
           <img
-            src={getAssetUrl('assets/games/crypt_sarcophagus.jpg')}
+            src={getAssetUrl('assets/games/crypt_sarcophagus.webp')}
             alt="Catacombes de la Crypte"
             className="w-full h-full object-cover object-center filter brightness-90 contrast-115"
           />

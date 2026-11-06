@@ -107,4 +107,29 @@ test('Creature SFX helper exports and mute behavior', async () => {
   setSfxMuted(false);
 });
 
+test('AudioEngine shuffle and loop control APIs', async () => {
+  const { audioEngine } = await import('./audioEngine.ts');
+
+  // Test loop setter and getter
+  audioEngine.setLoop(false);
+  assert.strictEqual(audioEngine.getIsLoop(), false, 'Loop should be false');
+  audioEngine.setLoop(true);
+  assert.strictEqual(audioEngine.getIsLoop(), true, 'Loop should be true');
+
+  // Test shuffle setter and getter
+  audioEngine.setShuffle(true);
+  assert.strictEqual(audioEngine.getIsShuffle(), true, 'Shuffle should be true');
+  audioEngine.setShuffle(false);
+  assert.strictEqual(audioEngine.getIsShuffle(), false, 'Shuffle should be false');
+
+  // Test volume setter and getter with clamping
+  audioEngine.setVolume(0.5);
+  assert.strictEqual(audioEngine.getVolume(), 0.5, 'Volume should be 0.5');
+  audioEngine.setVolume(2.0);
+  assert.strictEqual(audioEngine.getVolume(), 1.0, 'Volume should be clamped to 1.0');
+  audioEngine.setVolume(-0.5);
+  assert.strictEqual(audioEngine.getVolume(), 0.0, 'Volume should be clamped to 0.0');
+  audioEngine.setVolume(0.85);
+});
+
 

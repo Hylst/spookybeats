@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import organSanctuaryImg from '../assets/images/hylst_organ_sanctuary_1793965924606.jpg';
+import { getAssetUrl } from '../utils/assetPath';
 import {
   Sparkles,
   Music,
@@ -144,7 +144,7 @@ export const SanctuaireHylst: React.FC<SanctuaireHylstProps> = ({
           {/* Illustration Grand Format de l'Orgue Monumental & Alchimie Sonore */}
           <div className="relative h-48 sm:h-60 w-full overflow-hidden rounded-xl border border-[#6A0DAD]/50 shadow-2xl group">
             <img
-              src={organSanctuaryImg}
+              src={getAssetUrl('assets/hylst_organ_sanctuary.webp')}
               alt="Sanctuaire de l'Orgue Gothique et Alchimie d'Hylst"
               className="w-full h-full object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-1000 filter brightness-90 contrast-115"
               onError={(e) => {

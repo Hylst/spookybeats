@@ -10,44 +10,96 @@ import { BackgroundFog } from './components/BackgroundFog';
 import { CryptHome } from './components/CryptHome';
 import { PhantomPlayer } from './components/PhantomPlayer';
 import { SoundVault } from './components/SoundVault';
-import { MiniGamesHub } from './components/MiniGamesHub';
-import { GrimoireLegendes } from './components/GrimoireLegendes';
-import { SanctuaireHylst } from './components/SanctuaireHylst';
-import { HauntedManor3D } from './components/HauntedManor3D';
 import { InfoSection } from './components/InfoSection';
-import { HalloweenBeatPad } from './components/HalloweenBeatPad';
-import { BestiaireOmbre } from './components/BestiaireOmbre';
-import { EnigmesCrypte } from './components/EnigmesCrypte';
 import { ConcertVisualizerModal } from './components/ConcertVisualizerModal';
 import { AudioConfigModal } from './components/AudioConfigModal';
 import { GothicCobwebCorner, DrippingBloodAccent } from './components/GothicDecorations';
 import { GothicCreaturesOverlay } from './components/GothicCreaturesOverlay';
+import { CryptLoader } from './components/CryptLoader';
 import { audioEngine, DEFAULT_TRACKS, TrackMetadata } from './audio/audioEngine';
 import { getTrackLore } from './audio/trackLore';
-import { setSfxMuted, playDoorCreak } from './audio/sfx';
+import { setSfxMuted } from './audio/sfx';
+
+// Code-splitting React.lazy() pour les ecrans secondaires lourds (Three.js, Canvas, etc.)
+const HauntedManor3D = React.lazy(() =>
+  import('./components/HauntedManor3D').then((m) => ({ default: m.HauntedManor3D }))
+);
+const BestiaireOmbre = React.lazy(() =>
+  import('./components/BestiaireOmbre').then((m) => ({ default: m.BestiaireOmbre }))
+);
+const HalloweenBeatPad = React.lazy(() =>
+  import('./components/HalloweenBeatPad').then((m) => ({ default: m.HalloweenBeatPad }))
+);
+const MiniGamesHub = React.lazy(() =>
+  import('./components/MiniGamesHub').then((m) => ({ default: m.MiniGamesHub }))
+);
+const GrimoireLegendes = React.lazy(() =>
+  import('./components/GrimoireLegendes').then((m) => ({ default: m.GrimoireLegendes }))
+);
+const SanctuaireHylst = React.lazy(() =>
+  import('./components/SanctuaireHylst').then((m) => ({ default: m.SanctuaireHylst }))
+);
+const EnigmesCrypte = React.lazy(() =>
+  import('./components/EnigmesCrypte').then((m) => ({ default: m.EnigmesCrypte }))
+);
+
+const VALID_SCREENS: ScreenId[] = [
+  'crypte',
+  'lecteur',
+  'caveau',
+  'studio',
+  'massacre',
+  'manoir',
+  'bestiaire',
+  'enigmes',
+  'legendes',
+  'sanctuaire',
+  'info',
+];
+
+const getScreenFromHash = (): ScreenId | null => {
+  if (typeof window === 'undefined') return null;
+  const hash = window.location.hash.replace(/^#\/?/, '').trim().toLowerCase() as ScreenId;
+  return VALID_SCREENS.includes(hash) ? hash : null;
+};
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState<ScreenId>('crypte');
+  const [currentScreen, setCurrentScreen] = useState<ScreenId>(() => getScreenFromHash() || 'crypte');
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(() => audioEngine.isSoundMuted());
   const [horrorLevel, setHorrorLevel] = useState<1 | 2 | 3>(1);
   const [tracks, setTracks] = useState<TrackMetadata[]>(DEFAULT_TRACKS);
-  const [currentTrack, setCurrentTrack] = useState<TrackMetadata>(DEFAULT_TRACKS[0]);
+  const [currentTrack, setCurrentTrack] = useState<TrackMetadata>(() => audioEngine.getCurrentTrack());
   const [highScore, setHighScore] = useState<number>(6660);
   const [isConfigOpen, setIsConfigOpen] = useState<boolean>(false);
   const [isConcertOpen, setIsConcertOpen] = useState<boolean>(false);
 
+  // Synchronisation du hash URL (deep-linking et boutons precedent/suivant navigateur)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const screen = getScreenFromHash();
+      if (screen && screen !== currentScreen) {
+        setCurrentScreen(screen);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [currentScreen]);
+
   // Initialisation et gestion des abonnements audio
   useEffect(() => {
-    // Vérifier paramètre ?autostart=1 pour les tests automatisés
+    // Verifier parametre ?autostart=1 pour les tests automatises
     const params = new URLSearchParams(window.location.search);
     if (params.get('autostart') === '1') {
       audioEngine.playTrack(DEFAULT_TRACKS[0]);
       setCurrentScreen('lecteur');
+      window.history.replaceState(null, '', '#lecteur');
     }
 
-    // Charger les URLs ou records sauvegardés en local
+    // Charger les URLs ou records sauvegardes en local
     const savedHighScore = localStorage.getItem('spookybeats_high_score');
     if (savedHighScore) {
       setHighScore(parseInt(savedHighScore, 10));
@@ -63,8 +115,14 @@ export default function App() {
             ...t,
             loreText: t.loreText || getTrackLore(t.slug),
           }));
+          const savedSlug = localStorage.getItem('spookybeats_last_track');
+          const found = savedSlug ? enriched.find((t: TrackMetadata) => t.slug === savedSlug) : null;
           setTracks(enriched);
-          if (enriched.length > 0) setCurrentTrack(enriched[0]);
+          if (found) {
+            setCurrentTrack(found);
+          } else if (enriched.length > 0) {
+            setCurrentTrack(enriched[0]);
+          }
         } else {
           setTracks(DEFAULT_TRACKS);
           setCurrentTrack(DEFAULT_TRACKS[0]);
@@ -90,6 +148,9 @@ export default function App() {
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentScreen(newScreen);
+      if (window.location.hash.replace(/^#\/?/, '') !== newScreen) {
+        window.history.pushState(null, '', `#${newScreen}`);
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
         setIsTransitioning(false);
@@ -151,14 +212,14 @@ export default function App() {
       {/* Fond de brume spectrale, esprits et chauves-souris en Canvas */}
       <BackgroundFog intensity={horrorLevel} />
 
-      {/* Faune gothique interactive : araignées tisseuses, citrouilles bondissantes, chauves-souris, sorcière */}
+      {/* Faune gothique interactive : araignees tisseuses, citrouilles bondissantes, chauves-souris, sorciere */}
       <GothicCreaturesOverlay intensity={horrorLevel} />
 
-      {/* Toiles d'araignées gothiques dans les coins de l'écran */}
+      {/* Toiles d'araignees gothiques dans les coins de l'ecran */}
       <GothicCobwebCorner position="top-left" size={72} className="fixed top-0 left-0 z-50 opacity-60" />
       <GothicCobwebCorner position="top-right" size={72} className="fixed top-0 right-0 z-50 opacity-60" />
 
-      {/* En-tête supérieur */}
+      {/* En-tete superieur */}
       <Header
         currentScreen={currentScreen}
         isPlaying={isPlaying}
@@ -169,7 +230,7 @@ export default function App() {
         horrorLevel={horrorLevel}
       />
 
-      {/* Gouttes de sang stylisées sous le header */}
+      {/* Gouttes de sang stylisees sous le header */}
       <DrippingBloodAccent className="sticky top-[57px] z-30" />
 
       {/* Conteneur principal avec transition en fondu spectral */}
@@ -221,51 +282,65 @@ export default function App() {
         )}
 
         {currentScreen === 'studio' && (
-          <HalloweenBeatPad />
+          <React.Suspense fallback={<CryptLoader message="Ouverture du Beat Pad..." subtext="Chargement des synthétiseurs gothiques et percussions" />}>
+            <HalloweenBeatPad />
+          </React.Suspense>
         )}
 
         {currentScreen === 'massacre' && (
-          <MiniGamesHub
-            isPlaying={isPlaying}
-            onStartTrack4={(t) => audioEngine.playTrack(t)}
-            gameTrack={tracks[0]}
-            highScore={highScore}
-            onUpdateHighScore={handleUpdateHighScore}
-          />
+          <React.Suspense fallback={<CryptLoader message="Préparation des Épreuves..." subtext="Chargement des mini-jeux d'arcade" />}>
+            <MiniGamesHub
+              isPlaying={isPlaying}
+              onStartTrack4={(t) => audioEngine.playTrack(t)}
+              gameTrack={tracks[0]}
+              highScore={highScore}
+              onUpdateHighScore={handleUpdateHighScore}
+            />
+          </React.Suspense>
         )}
 
         {currentScreen === 'manoir' && (
-          <HauntedManor3D />
+          <React.Suspense fallback={<CryptLoader message="Invocation du Manoir 3D..." subtext="Initialisation du moteur Three.js et des spectres" />}>
+            <HauntedManor3D />
+          </React.Suspense>
         )}
 
         {currentScreen === 'bestiaire' && (
-          <BestiaireOmbre />
+          <React.Suspense fallback={<CryptLoader message="Éveil du Bestiaire..." subtext="Consultation des 20 créatures des ténèbres" />}>
+            <BestiaireOmbre />
+          </React.Suspense>
         )}
 
         {currentScreen === 'enigmes' && (
-          <EnigmesCrypte
-            tracks={tracks}
-            currentTrack={currentTrack}
-            isPlaying={isPlaying}
-            onSelectTrack={handleSelectTrack}
-          />
+          <React.Suspense fallback={<CryptLoader message="Déchiffrement des Énigmes..." subtext="Ouverture des grimoires ancestraux" />}>
+            <EnigmesCrypte
+              tracks={tracks}
+              currentTrack={currentTrack}
+              isPlaying={isPlaying}
+              onSelectTrack={handleSelectTrack}
+            />
+          </React.Suspense>
         )}
 
         {currentScreen === 'legendes' && (
-          <GrimoireLegendes
-            tracks={tracks}
-            isPlaying={isPlaying}
-            onSelectTrack={handleSelectTrack}
-          />
+          <React.Suspense fallback={<CryptLoader message="Ouverture du Grimoire..." subtext="Consultation des légendes et contes occultes" />}>
+            <GrimoireLegendes
+              tracks={tracks}
+              isPlaying={isPlaying}
+              onSelectTrack={handleSelectTrack}
+            />
+          </React.Suspense>
         )}
 
         {currentScreen === 'sanctuaire' && (
-          <SanctuaireHylst
-            tracks={tracks}
-            currentTrack={currentTrack}
-            isPlaying={isPlaying}
-            onSelectTrack={handleSelectTrack}
-          />
+          <React.Suspense fallback={<CryptLoader message="Accès au Sanctuaire..." subtext="Laboratoire sonore et orgue d'Hylst" />}>
+            <SanctuaireHylst
+              tracks={tracks}
+              currentTrack={currentTrack}
+              isPlaying={isPlaying}
+              onSelectTrack={handleSelectTrack}
+            />
+          </React.Suspense>
         )}
 
         {currentScreen === 'info' && (
@@ -273,10 +348,10 @@ export default function App() {
         )}
       </main>
 
-      {/* Barre de navigation inférieure gothique */}
+      {/* Barre de navigation inferieure gothique */}
       <Navigation currentScreen={currentScreen} onNavigate={navigateWithFade} />
 
-      {/* Mode Concert Plein Écran */}
+      {/* Mode Concert Plein Ecran */}
       <ConcertVisualizerModal
         isOpen={isConcertOpen}
         onClose={() => setIsConcertOpen(false)}

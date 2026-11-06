@@ -39,10 +39,12 @@
 
 ## 🟡 AMÉLIORATIONS - UX & Design
 
+- [x] **Lazy loading des composants lourds** (HauntedManor3D, BestiaireOmbre, etc.) via `React.lazy()` et `CryptLoader` (-70.4% taille bundle initial)
+- [x] **Conversion WebP** de tous les assets images locaux (-84% de poids, ~24 Mo économisés)
+- [x] **Deep-linking via hash URL** (`#lecteur`, `#studio`, `#manoir`, etc.) et synchronisation historique navigateur
+- [x] **Lecteur audio perfectionné** : mode aléatoire (Shuffle), répétition (Loop/Repeat) reliés au moteur audio et persistance localStorage (volume, dernière piste, modes)
 - [ ] Ajouter `prefers-reduced-motion` CSS query respectant le toggle de `InfoSection.tsx`
 - [ ] Ajouter gestion du focus visible (outline) pour navigation au clavier (accessibilité WCAG)
-- [ ] Lazy loading des composants lourds (HauntedManor3D, BestiaireOmbre) via `React.lazy()`
-- [ ] Scroll-to-top automatique après navigation déjà présent - tester sur mobile réel
 - [ ] Bouton "Retour en haut" pour les longs écrans (Grimoire, Bestiaire)
 - [ ] Transition de navigation : augmenter le `maxWidth` en mode `max-w-4xl` pour le studio
 

@@ -381,7 +381,7 @@ export const PumpkinSmasher: React.FC<PumpkinSmasherProps> = ({
       <div className="relative rounded-2xl overflow-hidden border border-[#FF7518]/60 shadow-[0_0_30px_rgba(255,117,24,0.3)]">
         <div className="h-44 sm:h-52 w-full relative">
           <img
-            src={getAssetUrl('assets/games/pumpkin_graveyard.jpg')}
+            src={getAssetUrl('assets/games/pumpkin_graveyard.webp')}
             alt="Cimetière Hanté de Citrouilles"
             className="w-full h-full object-cover object-center filter brightness-90 contrast-110"
           />

@@ -30,7 +30,7 @@ export interface DrawnCard {
 
 export type TarotSpreadType = 'single' | 'trinity';
 
-export const TAROT_CARD_BACK_IMAGE = getAssetUrl('assets/tarot/back.jpg');
+export const TAROT_CARD_BACK_IMAGE = getAssetUrl('assets/tarot/back.webp');
 
 export const CRYPT_TAROT_DECK: TarotCard[] = [
   {
@@ -41,7 +41,7 @@ export const CRYPT_TAROT_DECK: TarotCard[] = [
     subtitle: 'Virtuosité Post-Mortem & Résonance Sépulcrale',
     latinMotto: 'Musica mortis nunquam tacet',
     element: 'osseux',
-    image: getAssetUrl('assets/tarot/skeleton_cellist.jpg'),
+    image: getAssetUrl('assets/tarot/skeleton_cellist.webp'),
     uprightProphecy:
       'Votre prochain solo sépulcral réveillera un vampire particulièrement mélomane et susceptible. Les vibrations de vos graves fissureront les doutes qui vous retenaient cloué au sol.',
     reversedProphecy:
@@ -59,7 +59,7 @@ export const CRYPT_TAROT_DECK: TarotCard[] = [
     subtitle: 'Souveraineté Végétale & Mauvaise Humeur Royale',
     latinMotto: 'Cucurbita regnat in cinere',
     element: 'vegetal',
-    image: getAssetUrl('assets/tarot/grumpy_pumpkin.jpg'),
+    image: getAssetUrl('assets/tarot/grumpy_pumpkin.webp'),
     uprightProphecy:
       'Un être mesquin et mal inspiré tentera de vous réduire en velouté d’automne au potimarron. Restez stoïque : votre écorce est mille fois trop coriace pour leurs modestes couteaux de cuisine.',
     reversedProphecy:
@@ -77,7 +77,7 @@ export const CRYPT_TAROT_DECK: TarotCard[] = [
     subtitle: 'Écholocation Mélancolique & Tisane en Suspens',
     latinMotto: 'Volo ergo somnio inversus',
     element: 'spectral',
-    image: getAssetUrl('assets/tarot/depressed_bat.jpg'),
+    image: getAssetUrl('assets/tarot/depressed_bat.webp'),
     uprightProphecy:
       'Siroter une tisane de belladone la tête en bas sous un quartier de lune vous apportera une illumination philosophique d’une profondeur abyssale. Vous comprendrez enfin le sens des impôts fonciers.',
     reversedProphecy:
@@ -95,7 +95,7 @@ export const CRYPT_TAROT_DECK: TarotCard[] = [
     subtitle: 'Cocktail de Mort-aux-Rats & Scythe Décorée',
     latinMotto: 'Mors quoque requiescit in umbra',
     element: 'tenebreux',
-    image: getAssetUrl('assets/tarot/reaper_vacation.jpg'),
+    image: getAssetUrl('assets/tarot/reaper_vacation.webp'),
     uprightProphecy:
       'Tous vos e-mails marqués « URGENT : Réponse demandée avant hier » resteront enfouis dans les sables du temps. Personne ne viendra troubler votre sieste au caveau.',
     reversedProphecy:
@@ -113,7 +113,7 @@ export const CRYPT_TAROT_DECK: TarotCard[] = [
     subtitle: 'Curiosité Féline & Transmutation Chaotique',
     latinMotto: 'Felix cadit, elixir manat',
     element: 'alchimique',
-    image: getAssetUrl('assets/tarot/alchemist_cat.jpg'),
+    image: getAssetUrl('assets/tarot/alchemist_cat.webp'),
     uprightProphecy:
       'Par une nonchalante poussée de patte, vous allez renverser une situation que d’autres croyaient immuable depuis trois siècles. La réaction en chaîne sera miraculeuse.',
     reversedProphecy:
