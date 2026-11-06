@@ -18,9 +18,12 @@
 | Mode Audio 8D spatial | ✅ | StereoPanner animé en sinus |
 | Mode Cathédrale reverb | ✅ | Toggle |
 | Crossfade entre pistes (500ms) | ✅ | Fondu sortant + entrant |
-| Mute global (musique + SFX) | ✅ |  |
-| Contrôle de volume | ✅ | 0.85 par défaut |
-| Lecture aléatoire / répétition | ❌ | À ajouter |
+| Mute global (musique + SFX) | ✅ | Raccourci touche M / m |
+| Contrôle de volume | ✅ | 0.85 par défaut + persistance localStorage |
+| Lecture aléatoire (Shuffle) & Répétition (Loop) | ✅ | Connecté au moteur audio avec persistance |
+| MediaSession API (contrôle OS / mobile) | ✅ | Titre, artiste Hylst, pochette, touches médias |
+| Raccourcis clavier globaux | ✅ | Espace (Play/Pause), M (Mute), Alt+Flèches (Pistes) |
+| Défilement retour haut de crypte | ✅ | Bouton flottant après 400px de scroll |
 | File de lecture (playlist) | ❌ | À ajouter |
 | Favoris de pistes | ❌ | À ajouter |
 

@@ -43,16 +43,18 @@
 - [x] **Conversion WebP** de tous les assets images locaux (-84% de poids, ~24 Mo économisés)
 - [x] **Deep-linking via hash URL** (`#lecteur`, `#studio`, `#manoir`, etc.) et synchronisation historique navigateur
 - [x] **Lecteur audio perfectionné** : mode aléatoire (Shuffle), répétition (Loop/Repeat) reliés au moteur audio et persistance localStorage (volume, dernière piste, modes)
+- [x] **Auto-scroll de l'onglet actif** en navigation mobile/tablette
+- [x] **Raccourcis clavier globaux** (Espace = Play/Pause, M = Mute, Alt+Flèches = Piste suivante/précédente)
+- [x] **Bouton "Retour en haut de crypte"** (`ScrollTopButton`) pour les longs écrans (Grimoire, Bestiaire, Énigmes)
+- [x] **Support MediaSession API** (`navigator.mediaSession`) pour les notifications et l'écran de verrouillage
 - [ ] Ajouter `prefers-reduced-motion` CSS query respectant le toggle de `InfoSection.tsx`
 - [ ] Ajouter gestion du focus visible (outline) pour navigation au clavier (accessibilité WCAG)
-- [ ] Bouton "Retour en haut" pour les longs écrans (Grimoire, Bestiaire)
-- [ ] Transition de navigation : augmenter le `maxWidth` en mode `max-w-4xl` pour le studio
 
 ---
 
 ## 🟢 FONCTIONNALITÉS - À envisager
 
-- [ ] Mode hors-ligne PWA : Service Worker pour cache des pistes récemment jouées
+- [ ] Mode hors-ligne PWA complet avec Service Worker pour cache audio
 - [ ] Partage de piste : génération d'URL avec piste sélectionnée (`?track=the_umbral_descent`)
 - [ ] Favoris de pistes persistants en localStorage
 - [ ] Chronomètre de session / temps d'écoute cumulé
@@ -64,17 +66,16 @@
 
 ## ⚙️ INFRA / DEPLOY
 
+- [x] Ajouter un `robots.txt` dans `public/`
+- [x] Ajouter un `sitemap.xml` dans `public/`
+- [x] Ajouter `manifest.json` PWA et formats d'icônes `icon.webp`, `og-image.webp`
 - [ ] Configurer Nginx pour SPA (try_files → index.html)
 - [ ] Coolify : vérifier les headers CORS pour les assets audio (si nécessaire)
-- [ ] Optionnel : CDN pour les images JPG lourdes (> 1 Mo chacune)
-- [ ] Ajouter un `robots.txt` dans `public/`
-- [ ] Ajouter un `sitemap.xml` dans `public/` (une seule page → simple)
 
 ---
 
 ## 🧹 NETTOYAGE REPO
 
-- [ ] Supprimer `.aistudio/` du repo
-- [ ] Supprimer les screenshots `screen*.png` à la racine (ou déplacer dans `docs/screenshots/`)
-- [ ] Supprimer `home_decor.png` à la racine
-- [ ] Nettoyer `bun.lock` si npm est utilisé (ou conserver selon l'outil choisi)
+- [x] Supprimer `.aistudio/` et traces AI Studio du repo
+- [x] Conservation intégrale des images racines et sources (règle stricte utilisateur)
+- [ ] Nettoyer `bun.lock` si npm est définitivement l'unique gestionnaire retenu

@@ -5,6 +5,39 @@ Format : [Semantic Versioning](https://semver.org/lang/fr/)
 
 ---
 
+## [1.2.0] - 2026-11-06
+
+### 🎮 Intégration Système, MediaSession & Ergonomie UX
+
+#### Système & Contrôle Audio
+- **Support complet de l'API MediaSession (`navigator.mediaSession`)** :
+  - Métadonnées complètes transmises au système d'exploitation et à l'écran de verrouillage (titre, artiste avec mention Hylst, album "SpookyBeats", illustration haute résolution).
+  - Contrôles multimédias globaux actifs (Play/Pause, Précédent, Suivant, Chercher dans la piste).
+  - Gestion robuste des erreurs réseau audio : bascule propre de l'état de lecture lors de coupures ou de timeouts.
+
+#### Ergonomie UX & Accessibilité
+- **Auto-scroll de l'onglet actif** : dans la barre de navigation mobile/tablette, l'onglet sélectionné défile désormais automatiquement au centre de la vue (`scrollIntoView({ inline: 'center' })`).
+- **Raccourcis clavier globaux** :
+  - `Espace` : Bascule Lecture / Pause (avec garde pour les champs de saisie et formulaires).
+  - `M` / `m` : Coupure / Activation du son (musique + effets sonores).
+  - `Alt + Flèche Droite` : Piste audio suivante.
+  - `Alt + Flèche Gauche` : Piste audio précédente.
+- **Bouton flottant "Retour en haut de crypte" (`ScrollTopButton`)** :
+  - Apparition animée dès 400px de défilement vertical.
+  - Design gothique en crâne lumineux vert ectoplasme avec lueur citrouille au survol.
+  - Défilement fluide vers le haut (`behavior: 'smooth'`).
+
+#### Typage & Robustesse
+- **Élimination complète des types `any` résiduels** dans l'ensemble du dossier `src/` (0 `any`). Typage strict de toutes les fonctions de rappel, événements et métadonnées.
+- **Sécurisation des fallbacks d'images** : remplacement des URLs distantes par des fallbacks locaux garantis via `getAssetUrl('assets/gothic_vinyl_sarcophagus.webp')`.
+
+#### Conformité PWA & Monorepo Hylst.Games
+- **Fichier `manifest.json` PWA** : configuration standalone, orientation portrait-primary, thème `#0B0B0B`, déclaration des icônes 128×128 et 512×512.
+- **Assets monorepo** : génération de `icon.webp` (128×128) et `og-image.webp` (1024×576) conformes au standard Hylst.Games.
+- **Conservation intégrale des sources** : respect strict de la préservation de toutes les images originales du projet.
+
+---
+
 ## [1.1.0] - 2026-11-06
 
 ### 🚀 Optimisations Performance & Confort de Lecture
