@@ -729,6 +729,7 @@ class AudioEngine {
     this.init();
     this.currentTrack = track;
     this.notifyTrackChange(track);
+    this.updateMediaSession(track);
     if (typeof localStorage !== 'undefined') {
       try {
         localStorage.setItem('spookybeats_last_track', track.slug);
@@ -795,7 +796,13 @@ class AudioEngine {
       console.warn(`Erreur de lecture sur ${resolvedUrl}, tentative avec URL directe ${track.url}`, e);
       if (audio.src !== track.url) {
         audio.src = track.url;
-        audio.play().catch(console.error);
+        audio.play().catch(() => {
+          this.isPlaying = false;
+          this.notifyPlayState(false);
+        });
+      } else {
+        this.isPlaying = false;
+        this.notifyPlayState(false);
       }
     });
 
@@ -934,7 +941,48 @@ class AudioEngine {
   }
 
   private notifyPlayState(isPlaying: boolean) {
+    if (typeof navigator !== 'undefined' && 'mediaSession' in navigator) {
+      try {
+        navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
+      } catch (e) {
+        // ignore
+      }
+    }
     this.onPlayStateChangeCallbacks.forEach(cb => cb(isPlaying));
+  }
+
+  private updateMediaSession(track: TrackMetadata) {
+    if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) return;
+    try {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: track.title,
+        artist: `${track.artist} (Hylst)`,
+        album: track.album || 'SpookyBeats',
+        artwork: [
+          { src: track.coverArt, sizes: '512x512', type: 'image/webp' },
+        ],
+      });
+
+      navigator.mediaSession.setActionHandler('play', () => {
+        this.play();
+      });
+      navigator.mediaSession.setActionHandler('pause', () => {
+        this.pause();
+      });
+      navigator.mediaSession.setActionHandler('previoustrack', () => {
+        this.prevTrack();
+      });
+      navigator.mediaSession.setActionHandler('nexttrack', () => {
+        this.nextTrack();
+      });
+      navigator.mediaSession.setActionHandler('seekto', (details) => {
+        if (details.seekTime !== undefined && details.seekTime !== null) {
+          this.seek(details.seekTime);
+        }
+      });
+    } catch (e) {
+      // ignore
+    }
   }
 
   private notifyTimeUpdate(cur: number, dur: number) {
