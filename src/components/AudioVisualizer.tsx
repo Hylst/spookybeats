@@ -50,10 +50,37 @@ export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
 
       ctx.clearRect(0, 0, width, h);
 
+      let hasRealAudio = false;
       if (isPlaying && analyser) {
         analyser.getByteFrequencyData(freqData);
         analyser.getByteTimeDomainData(timeData);
-      } else {
+        for (let i = 0; i < bufferLength; i++) {
+          if (freqData[i] > 0) {
+            hasRealAudio = true;
+            break;
+          }
+        }
+      }
+
+      if (!hasRealAudio && isPlaying) {
+        // Animation vivante réactive au tempo en lecture quand l'analyseur est muet (cross-origin direct)
+        const curTrack = audioEngine.getCurrentTrack();
+        const bpm = curTrack?.bpm || 120;
+        const curTime = audioEngine.getCurrentTime();
+        const beatProgress = (curTime * (bpm / 60)) % 1;
+        const beatPulse = Math.sin(beatProgress * Math.PI);
+        idlePhase += 0.05;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const normIdx = i / bufferLength;
+          const bassBoost = Math.max(0, 1 - normIdx * 1.5) * (beatPulse * 90 + 50);
+          const midWave = Math.sin(idlePhase * 1.8 + i * 0.35) * 35;
+          const highFlicker = Math.sin(idlePhase * 3.5 + i * 0.8) * 20;
+          const amp = Math.min(255, Math.max(18, bassBoost + midWave + highFlicker + 60));
+          freqData[i] = amp;
+          timeData[i] = 128 + Math.sin(idlePhase * 2 + i * 0.4) * (20 + beatPulse * 30);
+        }
+      } else if (!hasRealAudio && !isPlaying) {
         // Animation vivante en pause
         idlePhase += 0.04;
         for (let i = 0; i < bufferLength; i++) {

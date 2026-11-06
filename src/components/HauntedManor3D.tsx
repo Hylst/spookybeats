@@ -482,10 +482,18 @@ export const HauntedManor3D: React.FC = () => {
       // Flicker candlelights & window lights with slight audio reactivity
       const analyser = audioEngine.getAnalyser();
       let audioMod = 1.0;
-      if (analyser && audioEngine.getIsPlaying()) {
+      if (audioEngine.getIsPlaying()) {
         const freqData = new Uint8Array(16);
-        analyser.getByteFrequencyData(freqData);
-        const bassAvg = (freqData[0] + freqData[1] + freqData[2] + freqData[3]) / 4;
+        if (analyser) {
+          analyser.getByteFrequencyData(freqData);
+        }
+        let bassAvg = (freqData[0] + freqData[1] + freqData[2] + freqData[3]) / 4;
+        if (bassAvg === 0) {
+          const curTrack = audioEngine.getCurrentTrack();
+          const bpm = curTrack?.bpm || 120;
+          const beatProgress = (time * (bpm / 60)) % 1;
+          bassAvg = Math.sin(beatProgress * Math.PI) * 90 + 30;
+        }
         audioMod = 1.0 + (bassAvg / 255) * 0.5;
       }
 

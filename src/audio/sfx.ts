@@ -671,7 +671,7 @@ export function playMp3Sfx(
     const fallbackUrl = `https://hylst.fr/mp3/sfx/${filename}`;
 
     const audio = new Audio(primaryUrl);
-    audio.crossOrigin = 'anonymous';
+    // Pas de crossOrigin anonymous : hylst.fr ne renvoie pas d'en-tête CORS, le HTML5 Audio direct lit parfaitement le MP3 sans restriction
 
     // Volume proportionnel : si une musique joue, les clics volontaires de la soundboard restent clairs sans saturer
     const baseVol = isMusicPlaying() ? 0.55 : 0.85;

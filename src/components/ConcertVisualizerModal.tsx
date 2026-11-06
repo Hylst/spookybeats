@@ -121,9 +121,30 @@ export const ConcertVisualizerModal: React.FC<ConcertVisualizerModalProps> = ({
       animId = requestAnimationFrame(render);
       angle += 0.015;
 
+      let hasRealAudio = false;
       if (analyser && isPlaying) {
         analyser.getByteFrequencyData(dataArray);
-      } else {
+        for (let i = 0; i < dataArray.length; i++) {
+          if (dataArray[i] > 0) {
+            hasRealAudio = true;
+            break;
+          }
+        }
+      }
+
+      if (!hasRealAudio && isPlaying) {
+        const curTrack = audioEngine.getCurrentTrack();
+        const bpm = curTrack?.bpm || 120;
+        const curTime = audioEngine.getCurrentTime();
+        const beatProgress = (curTime * (bpm / 60)) % 1;
+        const beatPulse = Math.sin(beatProgress * Math.PI);
+        for (let i = 0; i < dataArray.length; i++) {
+          const normIdx = i / dataArray.length;
+          const bassBoost = Math.max(0, 1 - normIdx * 1.4) * (beatPulse * 95 + 40);
+          const wave = Math.sin(angle * 1.5 + i * 0.3) * 30;
+          dataArray[i] = Math.min(255, Math.max(15, bassBoost + wave + 50));
+        }
+      } else if (!hasRealAudio && !isPlaying) {
         // Oscillation subtile de repos
         for (let i = 0; i < dataArray.length; i++) {
           dataArray[i] = Math.max(12, Math.sin(angle + i * 0.2) * 25 + 20);

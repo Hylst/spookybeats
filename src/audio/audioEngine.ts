@@ -813,9 +813,18 @@ class AudioEngine {
           this.isPlaying = true;
           this.notifyPlayState(true);
 
-          // Raccordement à l'analyseur de spectre Web Audio si le navigateur le permet
+          // Raccordement à l'analyseur de spectre Web Audio si même origine (ex: proxy /hml/)
           try {
-            if (this.audioCtx && this.masterGain && !this.currentSourceNode) {
+            const isSameOrigin = typeof window !== 'undefined' && (
+              resolvedUrl.startsWith('/') ||
+              resolvedUrl.startsWith(window.location.origin)
+            );
+
+            // IMPORTANT : Si la ressource est cross-origin (ex: https://hylst.fr/hml/ sur games.hylst.fr),
+            // brancher createMediaElementSource forcerait le flux en mode CORS-tainted muet (outputs zeroes).
+            // En laissant l'élément audio déconnecté de createMediaElementSource, le son sort directement
+            // et à pleine puissance sur les haut-parleurs du navigateur !
+            if (isSameOrigin && this.audioCtx && this.masterGain && !this.currentSourceNode) {
               const source = this.audioCtx.createMediaElementSource(audio);
               source.connect(this.masterGain);
               this.currentSourceNode = source;

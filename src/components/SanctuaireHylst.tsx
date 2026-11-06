@@ -166,7 +166,7 @@ export const SanctuaireHylst: React.FC<SanctuaireHylstProps> = ({
                   L'Atelier d'Hylst
                 </h1>
                 <p className="text-[10px] font-mono text-[#DFB7FF] tracking-wider">
-                  Orgues séculaires, synthèse modulaire & DAW professionnelle
+                  Orgues séculaires, synthèse modulaire & DAW
                 </p>
               </div>
             </div>
@@ -186,7 +186,7 @@ export const SanctuaireHylst: React.FC<SanctuaireHylstProps> = ({
               </span>
             </div>
             <p className="text-sm font-semibold text-white leading-relaxed">
-              Créateur de l'app et des musiques, création assistée par IA (et non pas générées, car mélange de compositions, effets, assemblages, édition audio, DAW, enregistrements, ...) : <span className="text-[#39FF14] underline decoration-[#FF7518] font-bold">Geoffroy Streit alias Hylst</span>
+              Créateur de l'app et des musiques, création assistée par IA (et non pas simplement générées, car mélange de compositions, effets, assemblages, édition audio, DAW, enregistrements, ...) : <span className="text-[#39FF14] underline decoration-[#FF7518] font-bold">Geoffroy Streit alias Hylst</span>
             </p>
             <VictorianFiligreeDivider className="my-2 opacity-50" accentColor="#FF7518" />
             <blockquote className="text-xs sm:text-sm italic font-serif text-[#DFB7FF] border-l-2 border-[#FF7518] pl-2.5">
@@ -195,7 +195,7 @@ export const SanctuaireHylst: React.FC<SanctuaireHylstProps> = ({
           </div>
 
           <p className="text-xs sm:text-sm text-[#C8C2D4] leading-relaxed">
-            Chaque morceau de SpookyBeats est le fruit d'un véritable travail d'artisanat sonore. Geoffroy Streit mêle arrangements orchestraux ténébreux, programmation de synthétiseurs vintage, mixage audio sur DAW professionnelle et traitement assisté par modèles d'intelligence artificielle pour forger un univers Halloween sombre et envoûtant.
+            Geoffroy pour ses musiques a expérimenté, pour le plaisir, en plus de générations d'échantillons de musique par IA, des arrangements orchestraux dans un DAW, du traitement du son, des enregistrements et des boucles thématiques, de la programmation / séquençage / génération de patterns, des boîtes à rythme, du voice to midi (Dubler), et du mixage audio.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
