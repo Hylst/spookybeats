@@ -1,0 +1,28 @@
+{
+  "name": "SpookyBeats - Expérience Sonore Gothique & Halloween",
+  "short_name": "SpookyBeats",
+  "description": "19 compositions gothiques originales, lecteur audio spectral, beat pad, manoir 3D et mini-jeux Halloween par Geoffroy Streit (Hylst).",
+  "start_url": "/spookybeats/",
+  "scope": "/spookybeats/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0B0B0B",
+  "theme_color": "#0B0B0B",
+  "icons": [
+    {
+      "src": "icon.webp",
+      "sizes": "128x128",
+      "type": "image/webp"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}
