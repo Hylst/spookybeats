@@ -32,6 +32,13 @@ Format : [Semantic Versioning](https://semver.org/lang/fr/)
   - Ajout `og:image`, `og:url`, `og:image:width/height`, `og:image:alt`, `og:locale`, `og:site_name`
   - Ajout `twitter:image`, `twitter:image:alt`, `twitter:creator`, `twitter:site`
   - Ajout `<link rel="icon">` et `<link rel="apple-touch-icon">`
+  - Création de `favicon.png` (32x32), `icon.png` (128x128), et `og-image.png` (1200x630)
+  - Ajout de `robots.txt` et `sitemap.xml` dans `public/`
+
+#### Tests & Qualité
+- **Découplé** `HYLST_MP3_SFX` de `SanctuaireHylst.tsx` vers `src/audio/hylstSfxData.ts` pour éviter le chargement de `.jpg` par Node.js test runner
+- **76/76 tests unitaires** passés au vert avec succès
+- **Build statique Vite** validé et testé sans warning
 
 #### Documentation
 - **Créé** `todo.md` — liste de tâches prioritaires

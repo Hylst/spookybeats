@@ -43,7 +43,7 @@ test('Track list order and attribution verification', () => {
 });
 
 test('Hylst MP3 SFX collection structure and filenames', async () => {
-  const { HYLST_MP3_SFX } = await import('../components/SanctuaireHylst.tsx');
+  const { HYLST_MP3_SFX } = await import('./hylstSfxData.ts');
   assert.ok(HYLST_MP3_SFX.length >= 20, 'At least 20 curated MP3 SFX items from hylst.fr');
   
   const categories = new Set(HYLST_MP3_SFX.map((s) => s.category));

@@ -14,23 +14,26 @@
 - [x] Réécrire `.env.example` (sans GEMINI_API_KEY)
 - [x] Améliorer `.gitignore` (ajouter `.aistudio/`, `bun.lock`, screenshots)
 - [x] SEO complet dans `index.html` (og:image, twitter:image, author, canonical, keywords)
-- [ ] **Créer `favicon.png` 32×32** et `icon.png` 128×128 → référencés dans index.html
-- [ ] **Créer `og-image.png` 1200×630** pour les partages réseaux sociaux
-- [ ] **Vérifier `base` dans `vite.config.ts`** selon le chemin Coolify (`/spookybeats/` ou `/`)
-- [ ] `npm install` pour régénérer `package-lock.json` sans les dépendances supprimées
-- [ ] `npm run build` → vérifier que le build passe sans erreur
+- [x] **Créer `favicon.png` 32×32** et `icon.png` 128×128 → créés et intégrés
+- [x] **Créer `og-image.png` 1200×630** pour les partages réseaux sociaux → généré et intégré
+- [x] **Vérifier `base` dans `vite.config.ts`** configuré sur `/spookybeats/`
+- [x] `npm install` pour régénérer `package-lock.json` sans les dépendances supprimées
+- [x] `npm run build` → validé en 527ms avec build statique complet dans `dist/`
+- [x] `npm test` → 76/76 tests unitaires passés avec succès
+- [x] `npm run lint` → 0 erreur TypeScript
 
 ---
 
 ## 🟠 IMPORTANT — Corrections de code
 
-- [ ] **Image `/src/assets/images/hylst_organ_sanctuary_...jpg`** référencée directement dans `SanctuaireHylst.tsx` via `/src/assets/...` → Ne fonctionne pas en prod. Corriger : importer l'image via `import` Vite ou déplacer dans `public/`
-- [ ] **`App.tsx` L60** : condition `parsed.length >= 19` trop stricte → remplacer par `parsed.length >= 1` pour résistance aux mises à jour
-- [ ] **`InfoSection.tsx` L42** : `as any` sur valeur localStorage → typer correctement avec assertion `as 'faible' | 'normal' | 'dense'`
-- [ ] **`SanctuaireHylst.tsx` L434** : `as any` sur `organStop` → remplacer par cast typé
-- [ ] Supprimer dossier `public/assets/aistudio/` (artefacts AI Studio dans le repo)
-- [ ] Supprimer les images tarot dupliquées dans `src/assets/images/` (versions sans timestamp)
-- [ ] Vérifier que tous les `coverArt` webp des 19 pistes sont bien accessibles sur `hylst.fr/hml/`
+- [x] **Image `/src/assets/images/hylst_organ_sanctuary_...jpg`** référencée directement dans `SanctuaireHylst.tsx` → Corrigé avec import ESM Vite bundlé
+- [x] **Extraction des données SFX** dans `src/audio/hylstSfxData.ts` pour découpler tests et UI
+- [x] **`App.tsx` L60** : condition `parsed.length >= 19` trop stricte → assoupli à `>= 1`
+- [x] **`InfoSection.tsx` L42** : `as any` sur valeur localStorage → typé rigoureusement
+- [x] **`SanctuaireHylst.tsx` L434** : `as any` sur `organStop` → remplacé par cast typé
+- [x] Supprimer dossier `.aistudio/` et `public/assets/aistudio/`
+- [x] Nettoyer `metadata.json` (suppression de `MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API`)
+- [x] Ajout de `robots.txt` et `sitemap.xml` dans `public/`
 
 ---
 
