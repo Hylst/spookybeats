@@ -34,6 +34,18 @@ interface NavigationProps {
 }
 
 export const Navigation: React.FC<NavigationProps> = ({ currentScreen, onNavigate }) => {
+  const activeTabRef = React.useRef<HTMLButtonElement | null>(null);
+
+  React.useEffect(() => {
+    if (activeTabRef.current) {
+      activeTabRef.current.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
+    }
+  }, [currentScreen]);
+
   const navItems = [
     { id: 'crypte' as ScreenId, label: 'Crypte', icon: Skull },
     { id: 'lecteur' as ScreenId, label: 'Lecteur', icon: Disc },
@@ -87,6 +99,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentScreen, onNavigat
                   ? 'bg-gradient-to-b from-[#220E33] to-[#0E0616] border border-[#39FF14]/70 shadow-[0_0_15px_rgba(57,255,20,0.3)] scale-105'
                   : 'hover:bg-[#12081C]/70 border border-transparent hover:border-[#6A0DAD]/40'
               }`}
+              ref={isActive ? activeTabRef : null}
               aria-label={`Aller à ${item.label}`}
             >
               {/* Point ogival supérieur sur l'onglet actif */}
