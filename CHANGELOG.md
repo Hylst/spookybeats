@@ -5,6 +5,19 @@ Format : [Semantic Versioning](https://semver.org/lang/fr/)
 
 ---
 
+## [1.2.1] - 2026-11-08
+
+### 🔊 Correctif : cacophonie au changement de piste
+
+- **Cause racine** : `stopCurrentAudio()` vidait le `src` de l'élément audio. Ce vidage déclenche un événement `error`, dont le handler tentait de recharger l'URL de secours et relançait l'ancienne piste par-dessus la nouvelle. Les morceaux s'empilaient, chacun figé à faible volume.
+- **Garde-fou sur les handlers** : `error`, `timeupdate` et `ended` ignorent désormais les événements d'un élément qui n'est plus la piste courante.
+- **Détachement propre** : l'élément est retiré de la référence avant d'être mis en pause, puis `src` est supprimé avec `load()` pour libérer le tampon réseau.
+- **Nœud Web Audio déconnecté** : l'ancien `MediaElementAudioSourceNode` est déconnecté du graphe au lieu d'être simplement oublié.
+- **Fondu de transition fiabilisé** : jeton d'annulation pour les clics rapides et calcul du fondu sur le temps écoulé, résistant au throttling des onglets en arrière-plan.
+- **Course au chargement** : si une piste est remplacée pendant que `play()` résout, elle ne réactive plus l'état de lecture ni le visualiseur.
+
+---
+
 ## [1.2.0] - 2026-11-06
 
 ### 🎮 Intégration Système, MediaSession & Ergonomie UX

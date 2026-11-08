@@ -444,6 +444,7 @@ class AudioEngine {
 
   private currentAudioElement: HTMLAudioElement | null = null;
   private currentSourceNode: MediaElementAudioSourceNode | null = null;
+  private fadeToken: number = 0;
   private currentTrack: TrackMetadata = DEFAULT_TRACKS[0];
   private isPlaying: boolean = false;
   private isMuted: boolean = false;
@@ -746,27 +747,33 @@ class AudioEngine {
   }
 
   private crossfadeToNewTrack(newTrack: TrackMetadata) {
-    const fadeDuration = 0.5;
+    const fadeDuration = 500; // ms
     const current = this.currentAudioElement;
 
-    if (current) {
-      // Fondu sonore sortant sur l'élément audio existant
-      const step = 0.05;
-      const initialVol = current.volume;
-      let vol = initialVol;
-      const fadeInterval = setInterval(() => {
-        vol -= (initialVol / (fadeDuration / step));
-        if (vol <= 0.05) {
-          clearInterval(fadeInterval);
-          this.stopCurrentAudio();
-          this.startAudioTrack(newTrack);
-        } else {
-          current.volume = Math.max(0, vol);
-        }
-      }, step * 1000);
-    } else {
+    if (!current) {
       this.startAudioTrack(newTrack);
+      return;
     }
+
+    // Jeton : un clic rapide sur une autre piste annule le fondu en cours
+    const token = ++this.fadeToken;
+    const startedAt = performance.now();
+    const initialVol = current.volume;
+
+    const fade = () => {
+      if (token !== this.fadeToken) return; // un autre fondu a pris le relais
+      const progress = Math.min(1, (performance.now() - startedAt) / fadeDuration);
+      if (progress < 1) {
+        current.volume = Math.max(0, initialVol * (1 - progress));
+        // setTimeout plutot que setInterval : resiste au throttling des onglets en arriere-plan
+        setTimeout(fade, 50);
+      } else {
+        current.volume = 0;
+        this.stopCurrentAudio();
+        this.startAudioTrack(newTrack);
+      }
+    };
+    setTimeout(fade, 50);
   }
 
   private startAudioTrack(track: TrackMetadata) {
@@ -783,16 +790,22 @@ class AudioEngine {
     this.currentAudioElement = audio;
 
     audio.addEventListener('timeupdate', () => {
+      if (this.currentAudioElement !== audio) return;
       this.notifyTimeUpdate(audio.currentTime, audio.duration || track.duration);
     });
 
     audio.addEventListener('ended', () => {
+      if (this.currentAudioElement !== audio) return;
       if (!this.isLoop) {
         this.nextTrack();
       }
     });
 
     audio.addEventListener('error', (e) => {
+      // Ignore les erreurs d'une piste deja remplacee : vider le src d'un element
+      // declenche un event "error" qui, sans ce garde-fou, relancait l'ancienne piste
+      // par-dessus la nouvelle. C'etait la cause de la cacophonie.
+      if (this.currentAudioElement !== audio) return;
       console.warn(`Erreur de lecture sur ${resolvedUrl}, tentative avec URL directe ${track.url}`, e);
       if (audio.src !== track.url) {
         audio.src = track.url;
@@ -810,6 +823,8 @@ class AudioEngine {
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
+          // La piste a pu etre remplacee pendant le chargement : on ne touche a rien
+          if (this.currentAudioElement !== audio) return;
           this.isPlaying = true;
           this.notifyPlayState(true);
 
@@ -911,16 +926,30 @@ class AudioEngine {
   }
 
   private stopCurrentAudio() {
-    if (this.currentAudioElement) {
+    const audio = this.currentAudioElement;
+    // On detache d'abord la reference : les handlers (error, timeupdate) ignores ainsi
+    // les evenements tardifs de l'element qu'on est en train de jeter.
+    this.currentAudioElement = null;
+    this.fadeToken++;
+
+    if (audio) {
       try {
-        this.currentAudioElement.pause();
-        this.currentAudioElement.src = '';
+        audio.pause();
+        audio.removeAttribute('src');
+        audio.load(); // libere le tampon reseau
       } catch (e) {
         // ignore
       }
-      this.currentAudioElement = null;
     }
-    this.currentSourceNode = null;
+
+    if (this.currentSourceNode) {
+      try {
+        this.currentSourceNode.disconnect();
+      } catch (e) {
+        // ignore
+      }
+      this.currentSourceNode = null;
+    }
   }
 
   // Abonnements
