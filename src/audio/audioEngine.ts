@@ -445,6 +445,7 @@ class AudioEngine {
   private currentAudioElement: HTMLAudioElement | null = null;
   private currentSourceNode: MediaElementAudioSourceNode | null = null;
   private fadeToken: number = 0;
+  private pendingTrackChange: TrackMetadata | null = null;
   private currentTrack: TrackMetadata = DEFAULT_TRACKS[0];
   private isPlaying: boolean = false;
   private isMuted: boolean = false;
@@ -677,6 +678,11 @@ class AudioEngine {
     this.isMuted = !this.isMuted;
     if (this.currentAudioElement) {
       this.currentAudioElement.muted = this.isMuted;
+      // Si la piste a ete creee pendant une coupure, son volume peut etre a 0 :
+      // on le restaure explicitement au retour du son.
+      if (!this.isMuted) {
+        this.currentAudioElement.volume = this.volume;
+      }
     }
     if (this.masterGain && this.audioCtx) {
       const target = this.isMuted ? 0 : this.volume;
@@ -729,6 +735,7 @@ class AudioEngine {
   public playTrack(track: TrackMetadata) {
     this.init();
     this.currentTrack = track;
+    this.pendingTrackChange = null;
     this.notifyTrackChange(track);
     this.updateMediaSession(track);
     if (typeof localStorage !== 'undefined') {
@@ -757,6 +764,7 @@ class AudioEngine {
 
     // Jeton : un clic rapide sur une autre piste annule le fondu en cours
     const token = ++this.fadeToken;
+    this.pendingTrackChange = newTrack;
     const startedAt = performance.now();
     const initialVol = current.volume;
 
@@ -769,6 +777,7 @@ class AudioEngine {
         setTimeout(fade, 50);
       } else {
         current.volume = 0;
+        this.pendingTrackChange = null;
         this.stopCurrentAudio();
         this.startAudioTrack(newTrack);
       }
@@ -776,7 +785,7 @@ class AudioEngine {
     setTimeout(fade, 50);
   }
 
-  private startAudioTrack(track: TrackMetadata) {
+  private startAudioTrack(track: TrackMetadata, autoplay: boolean = true) {
     this.stopCurrentAudio();
 
     // Résolution URL : utilise /hml/ en priorité (proxy même origine) pour permettre l'analyseur audio
@@ -786,7 +795,8 @@ class AudioEngine {
     // Pas de crossOrigin anonymous forcé qui bloquerait la lecture MP3
     audio.src = resolvedUrl;
     audio.loop = this.isLoop;
-    audio.volume = this.isMuted ? 0 : this.volume;
+    audio.volume = this.volume;
+    audio.muted = this.isMuted;
     this.currentAudioElement = audio;
 
     audio.addEventListener('timeupdate', () => {
@@ -819,6 +829,15 @@ class AudioEngine {
       }
     });
 
+    this.connectSourceNode(audio, resolvedUrl);
+
+    if (!autoplay) {
+      // Piste chargee mais volontairement silencieuse (pause demandee pendant un fondu)
+      this.isPlaying = false;
+      this.notifyPlayState(false);
+      return;
+    }
+
     const playPromise = audio.play();
     if (playPromise !== undefined) {
       playPromise
@@ -827,33 +846,34 @@ class AudioEngine {
           if (this.currentAudioElement !== audio) return;
           this.isPlaying = true;
           this.notifyPlayState(true);
-
-          // Raccordement à l'analyseur de spectre Web Audio si même origine (ex: proxy /hml/)
-          try {
-            const isSameOrigin = typeof window !== 'undefined' && (
-              resolvedUrl.startsWith('/') ||
-              resolvedUrl.startsWith(window.location.origin)
-            );
-
-            // IMPORTANT : Si la ressource est cross-origin (ex: https://hylst.fr/hml/ sur games.hylst.fr),
-            // brancher createMediaElementSource forcerait le flux en mode CORS-tainted muet (outputs zeroes).
-            // En laissant l'élément audio déconnecté de createMediaElementSource, le son sort directement
-            // et à pleine puissance sur les haut-parleurs du navigateur !
-            if (isSameOrigin && this.audioCtx && this.masterGain && !this.currentSourceNode) {
-              const source = this.audioCtx.createMediaElementSource(audio);
-              source.connect(this.masterGain);
-              this.currentSourceNode = source;
-            }
-          } catch (e) {
-            // Si le routage Web Audio échoue (sécurité navigateur), le flux audio HTML5 continue quand même de jouer parfaitement !
-            console.debug('Connexion MediaElementSource bypassée:', e);
-          }
         })
         .catch((err) => {
           console.warn('Autoplay bloqué en attente de clic utilisateur:', err);
           this.isPlaying = false;
           this.notifyPlayState(false);
         });
+    }
+  }
+
+  /**
+   * Raccordement à l'analyseur de spectre, uniquement si la ressource est de même origine.
+   * Une ressource cross-origin branchée sur createMediaElementSource deviendrait muette
+   * (flux CORS-tainted), donc on la laisse sortir directement par le haut-parleur HTML5.
+   */
+  private connectSourceNode(audio: HTMLAudioElement, resolvedUrl: string) {
+    try {
+      const isSameOrigin = typeof window !== 'undefined' && (
+        resolvedUrl.startsWith('/') ||
+        resolvedUrl.startsWith(window.location.origin)
+      );
+      if (isSameOrigin && this.audioCtx && this.masterGain && !this.currentSourceNode) {
+        const source = this.audioCtx.createMediaElementSource(audio);
+        source.connect(this.masterGain);
+        this.currentSourceNode = source;
+      }
+    } catch (e) {
+      // Si le routage Web Audio échoue (sécurité navigateur), le flux audio HTML5 continue quand même
+      console.debug('Connexion MediaElementSource bypassée:', e);
     }
   }
 
@@ -882,6 +902,18 @@ class AudioEngine {
   public pause() {
     this.isPlaying = false;
     this.notifyPlayState(false);
+
+    // Pause pendant un fondu : on arrete net l'ancienne piste et on charge la nouvelle
+    // sans la jouer, pour que "reprendre" lance bien la piste selectionnee.
+    if (this.pendingTrackChange) {
+      const pending = this.pendingTrackChange;
+      this.pendingTrackChange = null;
+      this.fadeToken++;
+      this.stopCurrentAudio();
+      this.startAudioTrack(pending, false);
+      return;
+    }
+
     if (this.currentAudioElement) {
       this.currentAudioElement.pause();
     }

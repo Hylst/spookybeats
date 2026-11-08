@@ -15,6 +15,8 @@ Format : [Semantic Versioning](https://semver.org/lang/fr/)
 - **Nœud Web Audio déconnecté** : l'ancien `MediaElementAudioSourceNode` est déconnecté du graphe au lieu d'être simplement oublié.
 - **Fondu de transition fiabilisé** : jeton d'annulation pour les clics rapides et calcul du fondu sur le temps écoulé, résistant au throttling des onglets en arrière-plan.
 - **Course au chargement** : si une piste est remplacée pendant que `play()` résout, elle ne réactive plus l'état de lecture ni le visualiseur.
+- **Pause pendant un fondu** : la pause arrête net l'ancienne piste et charge la nouvelle sans la jouer ; « reprendre » lance bien le morceau sélectionné.
+- **Changement de piste en mode muet** : le nouvel élément hérite de l'état `muted` et conserve son volume ; le retour du son le restaure réellement au lieu de le laisser à 0.
 
 ---
 
